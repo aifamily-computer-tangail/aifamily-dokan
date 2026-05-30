@@ -52,7 +52,7 @@ export default function App() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [coupons, setCoupons] = useState<Coupon[]>([]);
   const [config, setConfig] = useState<SiteConfig>({
-    logoText: 'AmarDukaan',
+    logoText: 'Brainchild BD AI Shop',
     themeColor: '#10B981',
     homepage: {
       heroSliders: [],
@@ -201,7 +201,7 @@ export default function App() {
               🛒
             </span>
             <span className="text-lg sm:text-2xl font-black text-slate-900 tracking-tight group-hover:text-emerald-600 transition-colors">
-              {config.logoText || 'AmarDukaan'}
+              {config.logoText || 'Brainchild BD AI Shop'}
             </span>
           </div>
 
@@ -404,7 +404,7 @@ export default function App() {
       <footer className="bg-slate-900 text-slate-400 py-12 pt-16 border-t border-slate-800 print:hidden mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-4 gap-8 text-xs sm:text-sm leading-relaxed">
           <div className="space-y-4">
-            <h4 className="text-white font-black text-base">{config.logoText || 'AmarDukaan'}</h4>
+            <h4 className="text-white font-black text-base">{config.logoText || 'Brainchild BD AI Shop'}</h4>
             <p className="max-w-xs">
               Bangladesh leading authentic multi-category ecommerce partner supplying traditional loom crafts, genuine forest honey, and state electronics in local BDT pricing.
             </p>
@@ -439,12 +439,12 @@ export default function App() {
             <p>
               📍 Level 8, Concord Tower, Kazi Nazrul Islam Avenue, Dhaka-1215<br />
               📞 Hotline: +880 9612-445566 (Auto-Routing)<br />
-              ✉️ support@amardukaan.com.bd
+              ✉️ support@brainchildbd.ai
             </p>
           </div>
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 border-t border-slate-800/80 pt-6 mt-12 text-center text-[11px] font-bold">
-          <p>© {new Date().getFullYear()} {config.logoText || 'AmarDukaan'} Platform. Multi-category Storefront. Steadfast Logistics Partner.</p>
+          <p>© {new Date().getFullYear()} {config.logoText || 'Brainchild BD AI Shop'} Platform. Multi-category Storefront. Steadfast Logistics Partner.</p>
         </div>
       </footer>
 

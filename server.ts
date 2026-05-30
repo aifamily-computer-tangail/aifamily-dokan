@@ -153,7 +153,7 @@ const DEFAULT_CONFIG: SiteConfig = {
   theme: {
     primaryColor: "emerald",
     secondaryColor: "slate",
-    logoText: "AmarDukaan",
+    logoText: "Brainchild BD AI Shop",
     contactEmail: "support@amardukaan.com.bd",
     contactPhone: "+880 1711-234567",
     address: "Level 4, House 12, Road 5, Dhanmondi, Dhaka 1205, Bangladesh",
@@ -183,7 +183,7 @@ const DEFAULT_CONFIG: SiteConfig = {
     promoText: { en: "Flash Sale Live! Extra BDT 500 Discount with code FLASH500", bn: "ফ্ল্যাশ সেল লাইভ! FLASH500 কোডে অতিরিক্ত ৫০০ টাকা ছাড়" }
   },
   seo: {
-    metaTitle: { en: "AmarDukaan - Best Bangladeshi eCommerce Platform", bn: "আমারদোকান - বাংলাদেশের সেরা ই-কমার্স প্ল্যাটফর্ম" },
+    metaTitle: { en: "Brainchild BD AI Shop - Best Bangladeshi eCommerce Platform", bn: "ব্রেইনচাইল্ড বিডি এআই শপ - বাংলাদেশের সেরা ই-কমার্স প্ল্যাটফর্ম" },
     metaDescription: { en: "Buy authentic handloom clothes, organic food, electronics and home decors directly in BDT with home delivery across Bangladesh.", bn: "সরাসরি বিডিটি-তে খাঁটি হ্যান্ডলুম কাপড়, অর্গানিক অর্গানিক খাবার, ইলেকট্রনিক্স এবং হোমর সামগ্রী কিনুন। সারা বাংলাদেশে হোম ডেলিভারি পাবেন।" }
   }
 };

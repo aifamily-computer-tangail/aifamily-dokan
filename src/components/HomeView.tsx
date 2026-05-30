@@ -392,14 +392,14 @@ export default function HomeView({
           <div className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm space-y-3">
             <div className="flex gap-1 text-amber-400">★★★★★</div>
             <p className="text-slate-600 text-xs sm:text-sm italic">
-              "Buying Walton and Miyako from AmarDukaan was a breeze. Delivered safely in Tangail in 2 days. Best BDT customer support!"
+              "Buying Walton and Miyako from Brainchild BD AI Shop was a breeze. Delivered safely in Tangail in 2 days. Best BDT customer support!"
             </p>
             <div className="font-bold text-slate-800 text-xs sm:text-sm">— Kazi Mukbul, Tangail</div>
           </div>
           <div className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm space-y-3">
             <div className="flex gap-1 text-amber-400">★★★★★</div>
             <p className="text-slate-600 text-xs sm:text-sm italic">
-              "The Dhakai Jamdani is 100% authentic handloom. Checked thread count. High standard and visually magnificent packaging. Thanks to AmarDukaan!"
+              "The Dhakai Jamdani is 100% authentic handloom. Checked thread count. High standard and visually magnificent packaging. Thanks to Brainchild BD AI Shop!"
             </p>
             <div className="font-bold text-slate-800 text-xs sm:text-sm">— Riffat Ara, Dhanmondi</div>
           </div>

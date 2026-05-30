@@ -54,7 +54,7 @@ export default function AdminView({
   });
 
   // Theme configuration builder state
-  const [themeLogo, setThemeLogo] = useState(config.logoText || 'AmarDukaan');
+  const [themeLogo, setThemeLogo] = useState(config.logoText || 'Brainchild BD AI Shop');
   const [themePromo, setThemePromo] = useState(config.homepage?.promoText?.en || '');
   const [isSiteSaving, setIsSiteSaving] = useState(false);
 
@@ -423,7 +423,7 @@ export default function AdminView({
                     category: 'fashion',
                     categoryId: 'fashion',
                     stock: 50,
-                    brand: 'AmarDukaan',
+                    brand: 'Brainchild BD AI Shop',
                     sku: 'SKU-' + Math.floor(1000 + Math.random() * 9000),
                     isFeatured: false,
                     isNewArrival: true,

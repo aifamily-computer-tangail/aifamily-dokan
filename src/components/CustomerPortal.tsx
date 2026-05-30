@@ -40,6 +40,25 @@ export default function CustomerPortal({ initialOrderId }: CustomerPortalProps) 
     setTrackError('');
     setFoundOrder(null);
 
+    // 1. Try checking local simulated orders in localStorage first
+    try {
+      const localOrdersStr = localStorage.getItem('amardukaan_local_orders');
+      if (localOrdersStr) {
+        const localOrders = JSON.parse(localOrdersStr);
+        if (Array.isArray(localOrders)) {
+          const matched = localOrders.find((o) => o.id.toUpperCase() === rawId.toUpperCase());
+          if (matched) {
+            setFoundOrder(matched);
+            setIsSearching(false);
+            return;
+          }
+        }
+      }
+    } catch (e) {
+      console.warn("Failed checking local storage orders", e);
+    }
+
+    // 2. Fetch from backend API
     try {
       const res = await fetch(`/api/orders/${rawId}`);
       if (!res.ok) {
@@ -52,7 +71,10 @@ export default function CustomerPortal({ initialOrderId }: CustomerPortalProps) 
         setFoundOrder(order);
       }
     } catch (err) {
-      setTrackError("Server Connection Failed.");
+      setTrackError(t({
+        en: "Invoice reference code not found or Server connection offline. Check your ID format.",
+        bn: "অর্ডার আইডিটি খুঁজে পাওয়া যায়নি অথবা সার্ভার অফলাইন রয়েছে।"
+      }));
     } finally {
       setIsSearching(false);
     }

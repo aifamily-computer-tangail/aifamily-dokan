@@ -1,19 +1,21 @@
 // src/components/BlogFAQView.tsx
 import React, { useState, useEffect } from 'react';
 import { useLanguage } from './LanguageContext';
+import dbFallback from '../../db.json';
 
 interface Blog {
   id: string;
   title: { en: string; bn: string };
-  excerpt: { en: string; bn: string };
+  excerpt?: { en: string; bn: string };
   content: { en: string; bn: string };
-  image: string;
+  image?: string;
+  imageUrl?: string;
   createdAt: string;
   author: string;
 }
 
 interface Faq {
-  id: string;
+  id?: string;
   question: { en: string; bn: string };
   answer: { en: string; bn: string };
 }
@@ -25,15 +27,30 @@ export default function BlogFAQView() {
   const [activeFaq, setActiveFaq] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch('/api/blogs')
-      .then((res) => res.json())
-      .then((data) => setBlogs(data || []))
-      .catch((err) => console.error("Blog fetch error:", err));
+    const fetchOrFallback = async <T,>(url: string, fallback: T): Promise<T> => {
+      try {
+        const res = await fetch(url);
+        if (!res.ok) return fallback;
+        const contentType = res.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) return fallback;
+        return await res.json() as T;
+      } catch (err) {
+        console.warn(`Fetch to ${url} failed, using local asset fallback`, err);
+        return fallback;
+      }
+    };
 
-    fetch('/api/faqs')
-      .then((res) => res.json())
-      .then((data) => setFaqs(data || []))
-      .catch((err) => console.error("FAQ fetch error:", err));
+    fetchOrFallback<Blog[]>('/api/blogs', dbFallback.blogs as Blog[])
+      .then((data) => {
+        const normalized = (data || []).map(b => ({
+          ...b,
+          image: b.image || b.imageUrl || "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&q=80&w=600"
+        }));
+        setBlogs(normalized);
+      });
+
+    fetchOrFallback<Faq[]>('/api/faqs', dbFallback.faqs as Faq[])
+      .then((data) => setFaqs(data || []));
   }, []);
 
   return (

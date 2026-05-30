@@ -12,6 +12,7 @@ import {
   ShoppingBag, Search, HelpCircle, Truck, Layers, 
   Settings, Menu, X, Star, Sparkles, Heart
 } from 'lucide-react';
+import dbFallback from '../db.json';
 
 export default function App() {
   const { t, l, setLanguage, language } = useLanguage();
@@ -68,22 +69,39 @@ export default function App() {
 
   // Fetch initial master lists from Express backend
   const fetchMasterData = async () => {
-    try {
-      const [resProd, resCat, resConf, resOrd, resCoup] = await Promise.all([
-        fetch('/api/products'),
-        fetch('/api/categories'),
-        fetch('/api/config'),
-        fetch('/api/orders'),
-        fetch('/api/coupons')
-      ]);
+    const fetchOrFallback = async <T,>(url: string, fallback: T): Promise<T> => {
+      try {
+        const res = await fetch(url);
+        if (!res.ok) return fallback;
+        const contentType = res.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) return fallback;
+        return await res.json() as T;
+      } catch (err) {
+        console.warn(`Fetch to ${url} failed, using local fallback assets`, err);
+        return fallback;
+      }
+    };
 
-      if (resProd.ok) setProducts(await resProd.json());
-      if (resCat.ok) setCategories(await resCat.json());
-      if (resConf.ok) setConfig(await resConf.json());
-      if (resOrd.ok) setOrders(await resOrd.json());
-      if (resCoup.ok) setCoupons(await resCoup.json());
+    try {
+      const productsData = await fetchOrFallback<Product[]>('/api/products', dbFallback.products as Product[]);
+      const categoriesData = await fetchOrFallback<Category[]>('/api/categories', dbFallback.categories as Category[]);
+      const configData = await fetchOrFallback<SiteConfig>('/api/config', dbFallback.config as SiteConfig);
+      const ordersData = await fetchOrFallback<Order[]>('/api/orders', dbFallback.orders as Order[]);
+      const couponsData = await fetchOrFallback<Coupon[]>('/api/coupons', dbFallback.coupons as Coupon[]);
+
+      setProducts(productsData);
+      setCategories(categoriesData);
+      setConfig(configData);
+      setOrders(ordersData);
+      setCoupons(couponsData);
     } catch (e) {
       console.error("Master catalog fetch error:", e);
+      // Absolute raw boundary safety fallback
+      setProducts(dbFallback.products as Product[]);
+      setCategories(dbFallback.categories as Category[]);
+      setConfig(dbFallback.config as SiteConfig);
+      setOrders(dbFallback.orders as Order[]);
+      setCoupons(dbFallback.coupons as Coupon[]);
     }
   };
 

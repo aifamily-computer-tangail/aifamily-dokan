@@ -4,7 +4,8 @@ import { useLanguage } from './LanguageContext';
 import { Product, Category, Order, SiteConfig, OrderStatus, Coupon } from '../types';
 import { 
   BarChart, Layers, Tag, Truck, Settings, ShieldAlert,
-  Plus, Edit2, Trash2, Check, RefreshCw, Download, Upload, Percent
+  Plus, Edit2, Trash2, Check, RefreshCw, Download, Upload, Percent,
+  Lock, Mail, LogOut
 } from 'lucide-react';
 
 interface AdminViewProps {
@@ -35,6 +36,37 @@ export default function AdminView({
   onRefreshAll,
 }: AdminViewProps) {
   const { t, l } = useLanguage();
+
+  // Admin login credentials state
+  const [isAuthorized, setIsAuthorized] = useState<boolean>(() => {
+    return sessionStorage.getItem('brainchild_admin_logged_in') === 'true';
+  });
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
+  const [loginError, setLoginError] = useState('');
+
+  const handleAdminLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (loginEmail.trim() === '16101993bd@gmail.com' && loginPassword === '@Passw0rd') {
+      setIsAuthorized(true);
+      sessionStorage.setItem('brainchild_admin_logged_in', 'true');
+      setLoginError('');
+    } else {
+      setLoginError(
+        t({
+          en: "Incorrect administration email or security password. Access Denied.",
+          bn: "ভুল প্রশাসনিক ইমেল বা নিরাপত্তা সংক্রান্ত পাসওয়ার্ড প্রবেশ করিয়েছেন।"
+        })
+      );
+    }
+  };
+
+  const handleAdminLogout = () => {
+    setIsAuthorized(false);
+    sessionStorage.removeItem('brainchild_admin_logged_in');
+    setLoginEmail('');
+    setLoginPassword('');
+  };
 
   // Navigation Panel Tabs State
   const [activeTab, setActiveTab] = useState<'overview' | 'products' | 'orders' | 'coupons' | 'site-builder' | 'audits'>('overview');
@@ -283,35 +315,127 @@ export default function AdminView({
     dlAnchorElem.click();
   };
 
+  if (!isAuthorized) {
+    return (
+      <div className="max-w-md mx-auto my-12 animate-fade-in">
+        <div className="bg-white border border-slate-200 rounded-3xl p-8 shadow-xl space-y-6 relative overflow-hidden">
+          {/* Accent decoration line */}
+          <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-emerald-500 via-teal-500 to-sky-500" />
+          
+          <div className="text-center space-y-2">
+            <div className="mx-auto w-12 h-12 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-600 mb-2">
+              <Lock className="w-5 h-5 animate-pulse" />
+            </div>
+            <h2 className="text-xl font-black text-slate-800 tracking-tight">
+              {t({ en: "Brainchild Admin Gateway", bn: "ব্রেইনচাইল্ড অ্যাডমিন গেটওয়ে" })}
+            </h2>
+            <p className="text-xs text-slate-400 font-semibold">
+              {t({ en: "Secure credentials required for dashboard access", bn: "ড্যাশবোর্ড অ্যাক্সেস করতে প্রশাসনিক তথ্য প্রবেশ করুন" })}
+            </p>
+          </div>
+
+          <form onSubmit={handleAdminLogin} className="space-y-4">
+            {loginError && (
+              <div className="p-3 bg-rose-50 border border-rose-100 rounded-xl text-xs text-rose-600 font-semibold text-center leading-normal">
+                ⚠️ {loginError}
+              </div>
+            )}
+
+            <div className="space-y-1.5">
+              <label className="text-[10px] uppercase font-black tracking-wider text-slate-400 block font-sans">
+                {t({ en: "Administrator Email", bn: "অ্যাডমিনিস্ট্রেটর ইমেল" })}
+              </label>
+              <div className="relative">
+                <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 pointer-events-none">
+                  <Mail className="w-4 h-4" />
+                </span>
+                <input
+                  type="email"
+                  required
+                  placeholder="16101993bd@gmail.com"
+                  value={loginEmail}
+                  onChange={(e) => setLoginEmail(e.target.value)}
+                  className="w-full pl-9 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all font-semibold text-slate-800 font-sans"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="text-[10px] uppercase font-black tracking-wider text-slate-400 block font-sans">
+                {t({ en: "Security Passcode", bn: "নিরাপত্তা পাসকোড" })}
+              </label>
+              <div className="relative">
+                <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 pointer-events-none">
+                  <Lock className="w-4 h-4" />
+                </span>
+                <input
+                  type="password"
+                  required
+                  placeholder="••••••••"
+                  value={loginPassword}
+                  onChange={(e) => setLoginPassword(e.target.value)}
+                  className="w-full pl-9 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all font-semibold text-slate-800 font-sans"
+                />
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-sm py-3 px-4 rounded-xl transition-all shadow-md active:scale-[0.98]"
+            >
+              {t({ en: "Unlock Control Console", bn: "কনসোল আনলক করুন" })}
+            </button>
+          </form>
+
+          <div className="pt-2 text-center border-t border-slate-100">
+            <span className="text-[10px] text-slate-400 font-bold">
+              🔒 Brainchild BD AI Security Platform
+            </span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
-      {/* Tab select links */}
-      <nav className="flex flex-wrap gap-2 border-b border-slate-200 pb-3">
-        {[
-          { tab: 'overview', label: 'Overview', icon: BarChart },
-          { tab: 'products', label: 'Products', icon: Layers },
-          { tab: 'orders', label: 'Orders (Steadfast)', icon: Truck },
-          { tab: 'coupons', label: 'Coupons (Vouchers)', icon: Tag },
-          { tab: 'site-builder', label: 'Theme Site Maker', icon: Settings },
-          { tab: 'audits', label: 'Security & Logs', icon: ShieldAlert },
-        ].map((item) => {
-          const Icon = item.icon;
-          return (
-            <button
-              key={item.tab}
-              onClick={() => setActiveTab(item.tab as any)}
-              className={`flex items-center gap-2 px-4 py-2 text-xs sm:text-sm font-bold rounded-xl transition-all ${
-                activeTab === item.tab
-                  ? 'bg-slate-900 text-white font-extrabold shadow-md'
-                  : 'text-slate-600 hover:bg-slate-100'
-              }`}
-            >
-              <Icon className="w-4 h-4" />
-              <span>{item.label}</span>
-            </button>
-          );
-        })}
-      </nav>
+      {/* Tab select links and Logout panel */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-3">
+        <nav className="flex flex-wrap gap-2">
+          {[
+            { tab: 'overview', label: 'Overview', icon: BarChart },
+            { tab: 'products', label: 'Products', icon: Layers },
+            { tab: 'orders', label: 'Orders (Steadfast)', icon: Truck },
+            { tab: 'coupons', label: 'Coupons (Vouchers)', icon: Tag },
+            { tab: 'site-builder', label: 'Theme Site Maker', icon: Settings },
+            { tab: 'audits', label: 'Security & Logs', icon: ShieldAlert },
+          ].map((item) => {
+            const Icon = item.icon;
+            return (
+              <button
+                key={item.tab}
+                onClick={() => setActiveTab(item.tab as any)}
+                className={`flex items-center gap-2 px-4 py-2 text-xs sm:text-sm font-bold rounded-xl transition-all ${
+                  activeTab === item.tab
+                    ? 'bg-slate-900 text-white font-extrabold shadow-md'
+                    : 'text-slate-600 hover:bg-slate-100'
+                }`}
+              >
+                <Icon className="w-4 h-4" />
+                <span>{item.label}</span>
+              </button>
+            );
+          })}
+        </nav>
+
+        <button
+          onClick={handleAdminLogout}
+          className="flex items-center gap-2 px-3 py-2 text-xs font-bold text-rose-600 hover:bg-rose-50 rounded-xl transition-all self-start sm:self-auto border border-transparent hover:border-rose-100"
+        >
+          <LogOut className="w-4 h-4" />
+          <span>{t({ en: "Secure Logout", bn: "লগআউট" })}</span>
+        </button>
+      </div>
 
       {/* OVERVIEW STATS TAB PANEL */}
       {activeTab === 'overview' && (

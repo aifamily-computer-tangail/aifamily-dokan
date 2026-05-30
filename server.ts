@@ -154,9 +154,9 @@ const DEFAULT_CONFIG: SiteConfig = {
     primaryColor: "emerald",
     secondaryColor: "slate",
     logoText: "Brainchild BD AI Shop",
-    contactEmail: "support@amardukaan.com.bd",
-    contactPhone: "+880 1711-234567",
-    address: "Level 4, House 12, Road 5, Dhanmondi, Dhaka 1205, Bangladesh",
+    contactEmail: "brainchilds.bd@gmail.com",
+    contactPhone: "+88 01760 443030",
+    address: "Tangail, Bangladesh.",
     facebookUrl: "https://facebook.com/amardukaan",
     youtubeUrl: "https://youtube.com/amardukaan"
   },
@@ -795,6 +795,50 @@ function addAuditLog(action: string, details: string) {
 
 // REST Middlewares
 app.use(express.json({ limit: "5mb" }));
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
+
+app.post("/api/upload-image", (req, res) => {
+  try {
+    const { base64Data, fileName } = req.body;
+    if (!base64Data) {
+      return res.status(400).json({ error: "Missing image data payload." });
+    }
+
+    const matches = base64Data.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+    let imageBuffer: Buffer;
+    let extension = "png";
+
+    if (matches && matches.length === 3) {
+      imageBuffer = Buffer.from(matches[2], "base64");
+      const mimeParts = matches[1].split("/");
+      if (mimeParts.length === 2) {
+        extension = mimeParts[1];
+      }
+    } else {
+      imageBuffer = Buffer.from(base64Data, "base64");
+    }
+
+    const uploadsDir = path.join(process.cwd(), "uploads");
+    if (!fs.existsSync(uploadsDir)) {
+      fs.mkdirSync(uploadsDir, { recursive: true });
+    }
+
+    const cleanFileName = fileName 
+      ? fileName.replace(/[^A-Za-z0-9_\-\.]/g, "_") 
+      : `img_${Date.now()}`;
+    const nameWithoutExt = path.parse(cleanFileName).name;
+    const finalFileName = `${nameWithoutExt}_${Date.now()}.${extension}`;
+    const destinationPath = path.join(uploadsDir, finalFileName);
+
+    fs.writeFileSync(destinationPath, imageBuffer);
+
+    const url = `/uploads/${finalFileName}`;
+    res.json({ url });
+  } catch (err: any) {
+    console.error("Image upload exception: ", err);
+    res.status(500).json({ error: err.message || "Failed to upload image." });
+  }
+});
 
 // Rate Limiter Mock
 const requestCountMap = new Map<string, { count: number; expires: number }>();

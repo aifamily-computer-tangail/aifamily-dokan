@@ -347,8 +347,12 @@ export default function CatalogView({
 
                     <div className="flex items-center gap-2">
                       <span className="text-slate-900 font-black text-sm">৳ {finalPrice.toLocaleString()}</span>
-                      {hasDiscount && (
+                      {hasDiscount ? (
                         <span className="text-slate-400 line-through text-[11px]">৳ {p.price.toLocaleString()}</span>
+                      ) : (
+                        p.compareAtPrice && p.compareAtPrice > p.price && (
+                          <span className="text-slate-400 line-through text-[11px]">৳ {p.compareAtPrice.toLocaleString()}</span>
+                        )
                       )}
                     </div>
 

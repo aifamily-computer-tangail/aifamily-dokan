@@ -79,6 +79,9 @@ export default function AdminView({
   const [editProduct, setEditProduct] = useState<Partial<Product> | null>(null);
   const [productForm, setProductForm] = useState<Partial<Product>>({});
   const [isProductSaving, setIsProductSaving] = useState(false);
+  const [crudMessage, setCrudMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
+  const [deleteConfirmProductId, setDeleteConfirmProductId] = useState<string | null>(null);
+  const [refundConfirmOrderId, setRefundConfirmOrderId] = useState<string | null>(null);
 
   // Coupons Modals
   const [couponForm, setCouponForm] = useState<Partial<Coupon>>({
@@ -89,6 +92,71 @@ export default function AdminView({
   const [themeLogo, setThemeLogo] = useState(config.logoText || 'Brainchild BD AI Shop');
   const [themePromo, setThemePromo] = useState(config.homepage?.promoText?.en || '');
   const [isSiteSaving, setIsSiteSaving] = useState(false);
+
+  // Image Upload States & Actions
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const [isDragOver, setIsDragOver] = useState(false);
+
+  const processImageFile = async (file: File) => {
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      setUploadError(t({ en: "Please upload a valid image file (jpeg, png, webp, etc).", bn: "অনুগ্রহ করে একটি সঠিক ছবি ফরম্যাটের ফাইল আপলোড করুন।" }));
+      return;
+    }
+    if (file.size > 4.5 * 1024 * 1024) {
+      setUploadError(t({ en: "Image size is too large (Maximum allowed is 4.5MB).", bn: "ছবির সাইজ অনেক বড় (সর্বোচ্চ ৪.৫ মেগাবাইট অনুমোদিত)।" }));
+      return;
+    }
+
+    setIsUploadingImage(true);
+    setUploadError(null);
+
+    try {
+      const reader = new FileReader();
+      reader.onloadend = async () => {
+        const base64Data = reader.result as string;
+        try {
+          const response = await fetch("/api/upload-image", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              base64Data,
+              fileName: file.name
+            })
+          });
+          
+          if (!response.ok) {
+            const errBody = await response.json();
+            throw new Error(errBody.error || "Failed to upload image file to server.");
+          }
+          
+          const result = await response.json();
+          if (result.url) {
+            setProductForm(prev => ({
+              ...prev,
+              images: [result.url]
+            }));
+            setCrudMessage({
+              text: t({ en: "Custom product image uploaded completely!", bn: "পণ্যের নিজস্ব ছবি সফলভাবে আপলোড হয়েছে!" }),
+              type: "success"
+            });
+            setTimeout(() => setCrudMessage(null), 4000);
+          }
+        } catch (uploadErr: any) {
+          console.error("Upload error: ", uploadErr);
+          setUploadError(uploadErr.message || "Network issue uploading file.");
+        } finally {
+          setIsUploadingImage(false);
+        }
+      };
+      reader.readAsDataURL(file);
+    } catch (err: any) {
+      console.error("Reader error: ", err);
+      setUploadError("Could not read image file locally.");
+      setIsUploadingImage(false);
+    }
+  };
 
   // Fetch report data on loads
   const fetchAnalytics = () => {
@@ -169,15 +237,18 @@ export default function AdminView({
       });
       if (res.ok) {
         onRefreshAll();
-        alert(`Order ${orderId} successfully set to ${status}. Details updated!`);
+        setCrudMessage({
+          text: `Order ${orderId} successfully set to ${status}. Details updated!`,
+          type: 'success'
+        });
+        setTimeout(() => setCrudMessage(null), 5000);
       }
     } catch (e) {
       console.error(e);
     }
   };
 
-  const handleRefundOrder = async (orderId: string) => {
-    if (!confirm(`Are you sure you want to trigger manual gateway refund for ${orderId}?`)) return;
+  const executeRefundOrder = async (orderId: string) => {
     try {
       const res = await fetch(`/api/orders/${orderId}/refund`, {
         method: 'POST',
@@ -186,21 +257,33 @@ export default function AdminView({
       });
       if (res.ok) {
         onRefreshAll();
-        alert("Refund status processed to origin verified gateway node!");
+        setCrudMessage({
+          text: "Refund status processed to origin verified gateway node!",
+          type: 'success'
+        });
+        setTimeout(() => setCrudMessage(null), 5000);
       }
     } catch (e) {
       console.error(e);
     }
   };
 
+  const handleRefundOrder = async (orderId: string) => {
+    setRefundConfirmOrderId(orderId);
+  };
+
   // Product CRUD Form validation and posting
   const handleSaveProduct = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!productForm.name?.en || !productForm.name?.bn) {
-      alert("Multilingual names are necessary!");
+      setCrudMessage({
+        text: t({ en: "Multilingual names are necessary!", bn: "বহুভাষিক নাম বাধ্যতামূলক!" }),
+        type: "error"
+      });
       return;
     }
     setIsProductSaving(true);
+    setCrudMessage(null);
 
     try {
       const isEdit = !!productForm.id;
@@ -210,6 +293,7 @@ export default function AdminView({
       const payload = {
         ...productForm,
         price: Number(productForm.price || 500),
+        compareAtPrice: productForm.compareAtPrice ? Number(productForm.compareAtPrice) : undefined,
         stock: Number(productForm.stock || 20),
         images: productForm.images?.length ? productForm.images : ['https://images.unsplash.com/photo-1441986300917-64674bd600d8'],
         rating: productForm.rating || 4.5,
@@ -228,13 +312,25 @@ export default function AdminView({
         setEditProduct(null);
         setProductForm({});
         onRefreshAll();
-        alert(isEdit ? "Product edited successfully!" : "Product created successfully!");
+        setCrudMessage({
+          text: isEdit 
+            ? t({ en: "Product edited safely and saved successfully!", bn: "পণ্য বিবরণ নিরাপদে সফলভাবে সম্পাদন করা হয়েছে!" })
+            : t({ en: "New product inventory node created successfully!", bn: "নতুন ইনভেন্টরি পণ্য সফলভাবে তৈরি করা হয়েছে!" }),
+          type: "success"
+        });
+        setTimeout(() => setCrudMessage(null), 5000);
       } else {
         const errData = await res.json();
-        alert(errData.error || "Save operation failed.");
+        setCrudMessage({
+          text: errData.error || t({ en: "Save operation failed.", bn: "সংরক্ষণ করতে ব্যর্থ হয়েছে।" }),
+          type: "error"
+        });
       }
     } catch (error) {
-      alert("Save Connection Error.");
+      setCrudMessage({
+        text: t({ en: "Save Connection Error.", bn: "সংযোগ বিচ্ছিন্ন হয়েছে বা ত্রুটি ঘটেছে।" }),
+        type: "error"
+      });
     } finally {
       setIsProductSaving(false);
     }
@@ -258,7 +354,11 @@ export default function AdminView({
       if (res.ok) {
         setCouponForm({ code: '', type: 'percentage', value: 10, minPurchase: 500, active: true });
         onRefreshAll();
-        alert("Coupon code created successfully with global validation attributes!");
+        setCrudMessage({
+          text: t({ en: "Coupon code created successfully with global validation attributes!", bn: "কুপন কোডটি সফলভাবে তৈরি করা হয়েছে!" }),
+          type: "success"
+        });
+        setTimeout(() => setCrudMessage(null), 5000);
       }
     } catch (err) {
       console.error(err);
@@ -266,15 +366,32 @@ export default function AdminView({
   };
 
   // Delete product action trigger
-  const handleDeleteProduct = async (id: string) => {
-    if (!confirm("Are you sure you want to permanently delete this SKU from database inventory?")) return;
+  const handleDeleteProduct = (id: string) => {
+    setDeleteConfirmProductId(id);
+  };
+
+  const executeDeleteProduct = async (id: string) => {
     try {
       const res = await fetch(`/api/products/${id}`, { method: 'DELETE' });
       if (res.ok) {
         onRefreshAll();
+        setCrudMessage({
+          text: t({ en: "Product deleted from database successfully.", bn: "পণ্যটি ডাটাবেস থেকে সফলভাবে মুছে ফেলা হয়েছে।" }),
+          type: "success"
+        });
+        setTimeout(() => setCrudMessage(null), 5000);
+      } else {
+        setCrudMessage({
+          text: t({ en: "Error deleting the product.", bn: "পণ্য মুছতে সমস্যা হয়েছে।" }),
+          type: "error"
+        });
       }
     } catch (err) {
       console.error(err);
+      setCrudMessage({
+        text: t({ en: "Delete Connection Error.", bn: "মুছে ফেলার সংযোগ বিচ্ছিন্ন হয়েছে বা ত্রুটি ঘটেছে।" }),
+        type: "error"
+      });
     }
   };
 
@@ -297,7 +414,14 @@ export default function AdminView({
         body: JSON.stringify(payload)
       });
       if (res.ok) {
-        alert("Frontend layout details updated and persisted inside configuration files! Refresh to see adjustments.");
+        setCrudMessage({
+          text: t({
+            en: "Frontend layout details updated and persisted successfully inside configuration database!",
+            bn: "কনফিগারেশন ডাটাবেসে ফ্রন্টএন্ড লেআউটের বিশদ বিবরণ সফলভাবে আপডেট এবং সংরক্ষিত হয়েছে!"
+          }),
+          type: "success"
+        });
+        setTimeout(() => setCrudMessage(null), 5000);
       }
     } catch (err) {
       console.error(err);
@@ -352,7 +476,6 @@ export default function AdminView({
                 <input
                   type="email"
                   required
-                  placeholder="16101993bd@gmail.com"
                   value={loginEmail}
                   onChange={(e) => setLoginEmail(e.target.value)}
                   className="w-full pl-9 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all font-semibold text-slate-800 font-sans"
@@ -371,7 +494,6 @@ export default function AdminView({
                 <input
                   type="password"
                   required
-                  placeholder="••••••••"
                   value={loginPassword}
                   onChange={(e) => setLoginPassword(e.target.value)}
                   className="w-full pl-9 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all font-semibold text-slate-800 font-sans"
@@ -544,6 +666,7 @@ export default function AdminView({
                     name: { en: '', bn: '' },
                     description: { en: '', bn: '' },
                     price: 499,
+                    compareAtPrice: undefined,
                     category: 'fashion',
                     categoryId: 'fashion',
                     stock: 50,
@@ -564,178 +687,309 @@ export default function AdminView({
             </div>
           </div>
 
+          {/* Toast feedback block inside products manager panel */}
+          {crudMessage && (
+            <div className={`p-4 rounded-xl text-xs font-bold shadow-sm flex items-center justify-between animate-fade-in ${
+              crudMessage.type === 'success' 
+                ? 'bg-emerald-50 text-emerald-800 border border-emerald-250' 
+                : 'bg-rose-50 text-rose-800 border border-rose-250'
+            }`}>
+              <span>{crudMessage.text}</span>
+              <button onClick={() => setCrudMessage(null)} className="opacity-60 hover:opacity-100 text-sm ml-2">×</button>
+            </div>
+          )}
+
           {/* Product form creator/editor MODAL drawer inline */}
           {editProduct && (
-            <form onSubmit={handleSaveProduct} className="p-5 border border-emerald-500/30 bg-emerald-55/10 rounded-2xl space-y-4 animate-fade-in">
-              <h4 className="font-black text-slate-800 text-sm border-b border-slate-150 pb-2">
-                {productForm.id ? `Edit Product (SKU: ${productForm.sku})` : "Create New Product SKU"}
-              </h4>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                {/* Multilingual Name fields */}
-                <div className="space-y-1">
-                  <label className="font-bold text-slate-600">Product Title (EN)</label>
-                  <input
-                    type="text"
-                    required
-                    value={productForm.name?.en || ''}
-                    onChange={(e) => setProductForm({ ...productForm, name: { ...productForm.name, en: e.target.value } as any })}
-                    placeholder="Classic Jamdani"
-                    className="w-full bg-white border border-slate-200 rounded-lg p-2"
-                  />
-                </div>
-                <div className="space-y-1">
-                  <label className="font-bold text-slate-600">পণ্য শিরোনাম (BN)</label>
-                  <input
-                    type="text"
-                    required
-                    value={productForm.name?.bn || ''}
-                    onChange={(e) => setProductForm({ ...productForm, name: { ...productForm.name, bn: e.target.value } as any })}
-                    placeholder="রেশমি সুতি শাড়ি"
-                    className="w-full bg-white border border-slate-200 rounded-lg p-2"
-                  />
-                </div>
-
-                <div className="space-y-1">
-                  <label className="font-bold text-slate-600">Category Select Node</label>
-                  <select
-                    value={productForm.categoryId || 'fashion'}
-                    onChange={(e) => setProductForm({ ...productForm, categoryId: e.target.value })}
-                    className="w-full bg-white border border-slate-200 rounded-lg p-2"
-                  >
-                    {categories.map((cat) => (
-                      <option key={cat.id} value={cat.id}>{t(cat.name)}</option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="space-y-1">
-                  <label className="font-bold text-slate-600">SKU Code Reference</label>
-                  <input
-                    type="text"
-                    required
-                    value={productForm.sku || ''}
-                    onChange={(e) => setProductForm({ ...productForm, sku: e.target.value })}
-                    className="w-full bg-white border border-slate-200 rounded-lg p-2"
-                  />
-                </div>
-
-                <div className="space-y-1">
-                  <label className="font-bold text-slate-600">Standard Price (BDT ৳)</label>
-                  <input
-                    type="number"
-                    required
-                    value={productForm.price || ''}
-                    onChange={(e) => setProductForm({ ...productForm, price: Number(e.target.value) })}
-                    className="w-full bg-white border border-slate-200 rounded-lg p-2"
-                  />
-                </div>
-
-                <div className="space-y-1">
-                  <label className="font-bold text-slate-600">Stock Count Levels</label>
-                  <input
-                    type="number"
-                    required
-                    value={productForm.stock ?? ''}
-                    onChange={(e) => setProductForm({ ...productForm, stock: Number(e.target.value) })}
-                    className="w-full bg-white border border-slate-200 rounded-lg p-2"
-                  />
-                </div>
-
-                <div className="space-y-1">
-                  <label className="font-bold text-slate-600">Brand Name</label>
-                  <input
-                    type="text"
-                    required
-                    value={productForm.brand || ''}
-                    onChange={(e) => setProductForm({ ...productForm, brand: e.target.value })}
-                    className="w-full bg-white border border-slate-200 rounded-lg p-2"
-                  />
-                </div>
-
-                <div className="space-y-1">
-                  <label className="font-bold text-slate-600">Main Image URL</label>
-                  <input
-                    type="url"
-                    value={productForm.images?.[0] || ''}
-                    onChange={(e) => setProductForm({ ...productForm, images: [e.target.value] })}
-                    placeholder="https://images.unsplash..."
-                    className="w-full bg-white border border-slate-200 rounded-lg p-2"
-                  />
-                </div>
-              </div>
-
-              {/* Checkboxes tags filters */}
-              <div className="flex flex-wrap gap-4 text-xs font-bold text-slate-600 pt-2">
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={!!productForm.isFeatured}
-                    onChange={(e) => setProductForm({ ...productForm, isFeatured: e.target.checked })}
-                    className="accent-emerald-500"
-                  />
-                  <span>Featured Product Banner</span>
-                </label>
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={!!productForm.isFlashSale}
-                    onChange={(e) => setProductForm({ ...productForm, isFlashSale: e.target.checked })}
-                    className="accent-emerald-500"
-                  />
-                  <span>Midnight Flash Deals</span>
-                </label>
-                {productForm.isFlashSale && (
-                  <div className="flex items-center gap-1 text-xs">
-                    <label>Discount Size %</label>
-                    <input
-                      type="number"
-                      value={productForm.flashSaleDiscount || 10}
-                      onChange={(e) => setProductForm({ ...productForm, flashSaleDiscount: Number(e.target.value) })}
-                      className="w-16 border rounded p-1"
-                    />
-                  </div>
-                )}
-              </div>
-
-              {/* Description boxes */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs pt-2">
-                <div className="space-y-1">
-                  <label className="font-bold text-slate-600">Description (EN)</label>
-                  <textarea
-                    value={productForm.description?.en || ''}
-                    onChange={(e) => setProductForm({ ...productForm, description: { ...productForm.description, en: e.target.value } as any })}
-                    rows={2}
-                    className="w-full bg-white border border-slate-200 rounded-lg p-2 text-xs focus:outline-none"
-                  />
-                </div>
-                <div className="space-y-1">
-                  <label className="font-bold text-slate-600">মুল বিবরণ (BN)</label>
-                  <textarea
-                    value={productForm.description?.bn || ''}
-                    onChange={(e) => setProductForm({ ...productForm, description: { ...productForm.description, bn: e.target.value } as any })}
-                    rows={2}
-                    className="w-full bg-white border border-slate-200 rounded-lg p-2 text-xs focus:outline-none"
-                  />
-                </div>
-              </div>
-
-              <div className="flex gap-2 justify-end pt-3">
+            <div className="fixed inset-0 z-55 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs overflow-y-auto animate-fade-in">
+              <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto space-y-4 relative">
                 <button
                   type="button"
                   onClick={() => setEditProduct(null)}
-                  className="bg-slate-100 hover:bg-slate-250 text-slate-600 font-bold px-4 py-2 rounded-lg text-xs"
+                  className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 transition-colors font-black text-xl p-1.5"
                 >
-                  Cancel
+                  &times;
                 </button>
-                <button
-                  type="submit"
-                  disabled={isProductSaving}
-                  className="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black px-5 py-2 rounded-lg text-xs"
-                >
-                  {isProductSaving ? 'Saving...' : 'Save Product Data'}
-                </button>
+                <form onSubmit={handleSaveProduct} className="space-y-4 text-left">
+                  <h4 className="font-extrabold text-slate-850 text-sm border-b border-slate-150 pb-2">
+                    {productForm.id ? `Edit Product (SKU: ${productForm.sku})` : "Create New Product SKU"}
+                  </h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                    {/* Multilingual Name fields */}
+                    <div className="space-y-1">
+                      <label className="font-bold text-slate-600">Product Title (EN)</label>
+                      <input
+                        type="text"
+                        required
+                        value={productForm.name?.en || ''}
+                        onChange={(e) => setProductForm({ ...productForm, name: { ...productForm.name, en: e.target.value } as any })}
+                        placeholder="Classic Jamdani"
+                        className="w-full bg-white border border-slate-200 rounded-lg p-2 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="font-bold text-slate-600">পণ্য শিরোনাম (BN)</label>
+                      <input
+                        type="text"
+                        required
+                        value={productForm.name?.bn || ''}
+                        onChange={(e) => setProductForm({ ...productForm, name: { ...productForm.name, bn: e.target.value } as any })}
+                        placeholder="রেশমি সুতি শাড়ি"
+                        className="w-full bg-white border border-slate-200 rounded-lg p-2 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all"
+                      />
+                    </div>
+
+                    <div className="space-y-1">
+                      <label className="font-bold text-slate-600">Category Select Node</label>
+                      <select
+                        value={productForm.categoryId || 'fashion'}
+                        onChange={(e) => setProductForm({ ...productForm, categoryId: e.target.value })}
+                        className="w-full bg-white border border-slate-200 rounded-lg p-2 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all"
+                      >
+                        {categories.map((cat) => (
+                          <option key={cat.id} value={cat.id}>{t(cat.name)}</option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div className="space-y-1">
+                      <label className="font-bold text-slate-600">SKU Code Reference</label>
+                      <input
+                        type="text"
+                        required
+                        value={productForm.sku || ''}
+                        onChange={(e) => setProductForm({ ...productForm, sku: e.target.value })}
+                        className="w-full bg-white border border-slate-200 rounded-lg p-2 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all"
+                      />
+                    </div>
+
+                    <div className="space-y-1">
+                      <label className="font-bold text-slate-600">Standard Price (BDT ৳)</label>
+                      <input
+                        type="number"
+                        required
+                        value={productForm.price || ''}
+                        onChange={(e) => setProductForm({ ...productForm, price: Number(e.target.value) })}
+                        className="w-full bg-white border border-slate-200 rounded-lg p-2 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all"
+                      />
+                    </div>
+
+                    <div className="space-y-1">
+                      <div className="flex justify-between items-center">
+                        <label className="font-bold text-slate-600">Compare-at Price / Striker (BDT ৳)</label>
+                        <span className="text-[10px] text-slate-400 font-semibold">(Optional cross-out)</span>
+                      </div>
+                      <input
+                        type="number"
+                        value={productForm.compareAtPrice || ''}
+                        onChange={(e) => setProductForm({ ...productForm, compareAtPrice: e.target.value ? Number(e.target.value) : undefined })}
+                        placeholder="e.g. 599"
+                        className="w-full bg-white border border-slate-200 rounded-lg p-2 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all"
+                      />
+                    </div>
+
+                    <div className="space-y-1">
+                      <label className="font-bold text-slate-600">Stock Count Levels</label>
+                      <input
+                        type="number"
+                        required
+                        value={productForm.stock ?? ''}
+                        onChange={(e) => setProductForm({ ...productForm, stock: Number(e.target.value) })}
+                        className="w-full bg-white border border-slate-200 rounded-lg p-2 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all"
+                      />
+                    </div>
+
+                    <div className="space-y-1">
+                      <label className="font-bold text-slate-600">Brand Name</label>
+                      <input
+                        type="text"
+                        required
+                        value={productForm.brand || ''}
+                        onChange={(e) => setProductForm({ ...productForm, brand: e.target.value })}
+                        className="w-full bg-white border border-slate-200 rounded-lg p-2 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all"
+                      />
+                    </div>
+
+                    <div className="space-y-2 sm:col-span-2">
+                      <label className="font-bold text-slate-700 block">Product Image Setup</label>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        {/* URL Paste Column */}
+                        <div className="space-y-1">
+                          <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Option A: Image URL</span>
+                          <input
+                            type="url"
+                            value={productForm.images?.[0] || ''}
+                            onChange={(e) => setProductForm({ ...productForm, images: [e.target.value] })}
+                            placeholder="https://images.unsplash.com/..."
+                            className="w-full bg-white border border-slate-200 rounded-lg p-2 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all text-xs"
+                          />
+                          {productForm.images?.[0] && (
+                            <div className="mt-2 text-[10px] text-slate-500 flex items-center gap-1.5 font-semibold">
+                              <span className="text-emerald-500">✓</span> URL configured active
+                              <img src={productForm.images[0]} alt="Preview" className="w-8 h-8 rounded object-cover border border-slate-100 ml-auto" referrerPolicy="no-referrer" />
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Drag and Drop Custom Upload Column */}
+                        <div className="space-y-1">
+                          <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Option B: Device Upload</span>
+                          
+                          <div
+                            onDragOver={(e) => { e.preventDefault(); setIsDragOver(true); }}
+                            onDragLeave={() => setIsDragOver(false)}
+                            onDrop={(e) => {
+                              e.preventDefault();
+                              setIsDragOver(false);
+                              if (e.dataTransfer.files?.[0]) {
+                                processImageFile(e.dataTransfer.files[0]);
+                              }
+                            }}
+                            onClick={() => {
+                              const fileInput = document.getElementById("product-image-file-input");
+                              if (fileInput) fileInput.click();
+                            }}
+                            className={`border-2 border-dashed rounded-xl p-3 text-center cursor-pointer transition-all flex flex-col items-center justify-center min-h-[75px] ${
+                              isDragOver 
+                                ? 'border-emerald-500 bg-emerald-50/30' 
+                                : 'border-slate-200 hover:border-slate-300 bg-slate-50/50 hover:bg-slate-50'
+                            }`}
+                          >
+                            <input
+                              type="file"
+                              id="product-image-file-input"
+                              accept="image/*"
+                              onChange={(e) => {
+                                if (e.target.files?.[0]) {
+                                  processImageFile(e.target.files[0]);
+                                }
+                              }}
+                              className="hidden"
+                            />
+                            
+                            {isUploadingImage ? (
+                              <div className="flex flex-col items-center gap-1">
+                                <div className="w-4 h-4 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin animate-duration-500"></div>
+                                <span className="text-[10px] font-bold text-slate-500">Uploading to server...</span>
+                              </div>
+                            ) : (
+                              <div className="space-y-0.5">
+                                <div className="flex items-center justify-center gap-1.5 text-slate-500">
+                                  <Upload className="w-4 h-4 text-emerald-600 animate-pulse" />
+                                  <span className="text-xs font-bold text-slate-700">Drag & Drop or Click</span>
+                                </div>
+                                <p className="text-[9px] text-slate-400 font-semibold">Supports JPEG, PNG, WEBP (Max 4.5MB)</p>
+                              </div>
+                            )}
+                          </div>
+                          
+                          {uploadError && (
+                            <p className="text-[10px] text-rose-500 font-bold mt-1 text-left">⚠️ {uploadError}</p>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Checkboxes tags filters */}
+                  <div className="border border-slate-150 p-3.5 bg-slate-50/50 rounded-xl space-y-3.5">
+                    <p className="text-[10px] tracking-wider font-extrabold text-slate-400 uppercase">Interactive Badge Flags</p>
+                    <div className="flex flex-wrap gap-x-6 gap-y-3 text-xs font-bold text-slate-600">
+                      <label className="flex items-center gap-2 cursor-pointer group">
+                        <input
+                          type="checkbox"
+                          checked={!!productForm.isFeatured}
+                          onChange={(e) => setProductForm({ ...productForm, isFeatured: e.target.checked })}
+                          className="accent-emerald-500 w-4 h-4 rounded cursor-pointer"
+                        />
+                        <span className="group-hover:text-slate-800 transition-colors">Featured Banner</span>
+                      </label>
+                      <label className="flex items-center gap-2 cursor-pointer group">
+                        <input
+                          type="checkbox"
+                          checked={!!productForm.isNewArrival}
+                          onChange={(e) => setProductForm({ ...productForm, isNewArrival: e.target.checked })}
+                          className="accent-emerald-500 w-4 h-4 rounded cursor-pointer"
+                        />
+                        <span className="group-hover:text-slate-800 transition-colors">New Arrival Badge</span>
+                      </label>
+                      <label className="flex items-center gap-2 cursor-pointer group">
+                        <input
+                          type="checkbox"
+                          checked={!!productForm.isBestSeller}
+                          onChange={(e) => setProductForm({ ...productForm, isBestSeller: e.target.checked })}
+                          className="accent-emerald-500 w-4 h-4 rounded cursor-pointer"
+                        />
+                        <span className="group-hover:text-slate-800 transition-colors">Best Seller Badge</span>
+                      </label>
+                      <label className="flex items-center gap-2 cursor-pointer group">
+                        <input
+                          type="checkbox"
+                          checked={!!productForm.isFlashSale}
+                          onChange={(e) => setProductForm({ ...productForm, isFlashSale: e.target.checked })}
+                          className="accent-emerald-500 w-4 h-4 rounded cursor-pointer"
+                        />
+                        <span className="group-hover:text-slate-800 transition-colors">Midnight Flash Sale</span>
+                      </label>
+                    </div>
+
+                    {productForm.isFlashSale && (
+                      <div className="flex items-center gap-3 bg-emerald-50/40 p-2.5 rounded-lg border border-emerald-100 max-w-sm animate-fade-in text-xs font-bold text-slate-700">
+                        <label className="shrink-0 text-slate-600">Discount Size Percentage (%):</label>
+                        <input
+                          type="number"
+                          min={1}
+                          max={99}
+                          value={productForm.flashSaleDiscount || 10}
+                          onChange={(e) => setProductForm({ ...productForm, flashSaleDiscount: Number(e.target.value) })}
+                          className="w-16 border border-slate-200 rounded p-1 text-center bg-white"
+                        />
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Description boxes */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs pt-1">
+                    <div className="space-y-1">
+                      <label className="font-bold text-slate-600">Description (EN)</label>
+                      <textarea
+                        value={productForm.description?.en || ''}
+                        onChange={(e) => setProductForm({ ...productForm, description: { ...productForm.description, en: e.target.value } as any })}
+                        rows={2}
+                        className="w-full bg-white border border-slate-200 rounded-lg p-2 text-xs focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="font-bold text-slate-600">মুল বিবরণ (BN)</label>
+                      <textarea
+                        value={productForm.description?.bn || ''}
+                        onChange={(e) => setProductForm({ ...productForm, description: { ...productForm.description, bn: e.target.value } as any })}
+                        rows={2}
+                        className="w-full bg-white border border-slate-200 rounded-lg p-2 text-xs focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex gap-2 justify-end pt-3 border-t border-slate-100">
+                    <button
+                      type="button"
+                      onClick={() => setEditProduct(null)}
+                      className="bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold px-4 py-2 rounded-lg text-xs transition-colors"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={isProductSaving}
+                      className="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black px-5 py-2 rounded-lg text-xs shadow transition-colors"
+                    >
+                      {isProductSaving ? 'Saving...' : 'Save Product Data'}
+                    </button>
+                  </div>
+                </form>
               </div>
-            </form>
+            </div>
           )}
 
           {/* Simple Products tabular lists view */}
@@ -771,8 +1025,11 @@ export default function AdminView({
                     <td className="p-3 flex items-center gap-2">
                       <button
                         onClick={() => {
-                          setEditProduct(p);
-                          setProductForm(p);
+                          const clone = JSON.parse(JSON.stringify(p));
+                          if (!clone.name) clone.name = { en: '', bn: '' };
+                          if (!clone.description) clone.description = { en: '', bn: '' };
+                          setEditProduct(clone);
+                          setProductForm(clone);
                         }}
                         className="p-1.5 hover:bg-slate-150 rounded text-amber-600"
                       >
@@ -1027,6 +1284,95 @@ export default function AdminView({
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      )}
+
+      {/* Delete Product Confirmation Custom Modal */}
+      {deleteConfirmProductId && (
+        <div className="fixed inset-0 z-55 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
+          <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-2xl w-full max-w-sm text-center space-y-4 animate-fade-in text-xs">
+            <div className="mx-auto w-12 h-12 bg-rose-50 text-rose-500 rounded-full flex items-center justify-center text-lg">⚠️</div>
+            <h3 className="font-extrabold text-slate-800 text-sm">
+              {t({ en: "Confirm product deletion?", bn: "পণ্যটি কি মুছে ফেলবেন?" })}
+            </h3>
+            <p className="text-slate-400 font-semibold leading-relaxed">
+              {t({ en: "This SKU and all associated data will be permanently wiped from database inventory structures.", bn: "এই পণ্যটি এবং সম্পর্কিত সকল ডেটা ডাটাবেস থেকে মুছে ফেলা হয়ে যাবে।" })}
+            </p>
+            <div className="flex gap-2 justify-center pt-2">
+              <button
+                onClick={() => setDeleteConfirmProductId(null)}
+                className="bg-slate-100 hover:bg-slate-200 text-slate-600 font-black px-4 py-2 rounded-xl text-xs transition-colors"
+              >
+                {t({ en: "Cancel", bn: "না, বাতিল" })}
+              </button>
+              <button
+                onClick={() => {
+                  const id = deleteConfirmProductId;
+                  setDeleteConfirmProductId(null);
+                  executeDeleteProduct(id);
+                }}
+                className="bg-rose-600 hover:bg-rose-500 text-white font-black px-4 py-2 rounded-xl text-xs transition-colors"
+              >
+                {t({ en: "Yes, Delete Permanently", bn: "হ্যাঁ, মুছে ফেলুন" })}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Manual Refund Confirmation Custom Modal */}
+      {refundConfirmOrderId && (
+        <div className="fixed inset-0 z-55 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
+          <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-2xl w-full max-w-sm text-center space-y-4 animate-fade-in text-xs">
+            <div className="mx-auto w-12 h-12 bg-amber-50 text-amber-500 rounded-full flex items-center justify-center text-lg">💸</div>
+            <h3 className="font-extrabold text-slate-800 text-sm">
+              Confirm Manual Gateway Refund?
+            </h3>
+            <p className="text-slate-400 font-semibold leading-relaxed">
+              Are you sure you want to trigger manual refund verification? This will commit custom log tags to parent gateway.
+            </p>
+            <div className="flex gap-2 justify-center pt-2">
+              <button
+                onClick={() => setRefundConfirmOrderId(null)}
+                className="bg-slate-100 hover:bg-slate-200 text-slate-600 font-black px-4 py-2 rounded-xl text-xs transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  const id = refundConfirmOrderId;
+                  setRefundConfirmOrderId(null);
+                  executeRefundOrder(id);
+                }}
+                className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black px-4 py-2 rounded-xl text-xs transition-colors shadow-sm"
+              >
+                Trigger Refund
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Universal Floating Toast/Alert Notification Box (Fixed bottom right) */}
+      {crudMessage && (
+        <div className="fixed bottom-6 right-6 z-60 animate-bounce-short">
+          <div className={`p-4 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-3 border ${
+            crudMessage.type === 'success' 
+              ? 'bg-slate-900 text-white border-slate-800' 
+              : 'bg-rose-600 text-white border-rose-500'
+          }`}>
+            <span className="text-lg">{crudMessage.type === 'success' ? '✅' : '⚠️'}</span>
+            <div className="pr-2 text-left">
+              <p className="font-extrabold">{crudMessage.type === 'success' ? 'OPERATION COMPLETED' : 'ERROR DETECTED'}</p>
+              <p className="opacity-90 font-semibold">{crudMessage.text}</p>
+            </div>
+            <button 
+              onClick={() => setCrudMessage(null)} 
+              className="text-white hover:opacity-80 transition-opacity font-black text-sm p-1 ml-auto"
+            >
+              ×
+            </button>
           </div>
         </div>
       )}

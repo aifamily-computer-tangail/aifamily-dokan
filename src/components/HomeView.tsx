@@ -259,8 +259,12 @@ export default function HomeView({
                     </h3>
                     <div className="flex items-center gap-2 mt-1">
                       <span className="text-slate-900 font-extrabold">৳ {finalPrice.toLocaleString()}</span>
-                      {hasDiscount && (
+                      {hasDiscount ? (
                         <span className="text-slate-400 line-through text-xs">৳ {p.price.toLocaleString()}</span>
+                      ) : (
+                        p.compareAtPrice && p.compareAtPrice > p.price && (
+                          <span className="text-slate-400 line-through text-xs">৳ {p.compareAtPrice.toLocaleString()}</span>
+                        )
                       )}
                     </div>
                     {/* Rating display */}

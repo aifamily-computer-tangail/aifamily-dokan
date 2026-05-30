@@ -437,9 +437,9 @@ export default function App() {
           <div className="space-y-4">
             <h4 className="text-white font-black text-sm uppercase tracking-wider">Contact Gateway Desks</h4>
             <p>
-              📍 Level 8, Concord Tower, Kazi Nazrul Islam Avenue, Dhaka-1215<br />
-              📞 Hotline: +880 9612-445566 (Auto-Routing)<br />
-              ✉️ support@brainchildbd.ai
+              📍 {config.theme?.address || "Tangail, Bangladesh."}<br />
+              📞 {config.theme?.contactPhone || "+88 01760 443030"}<br />
+              ✉️ {config.theme?.contactEmail || "brainchilds.bd@gmail.com"}
             </p>
           </div>
         </div>

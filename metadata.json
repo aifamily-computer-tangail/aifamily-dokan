@@ -1,0 +1,6 @@
+{
+  "name": "AmarDukaan BDT eCommerce",
+  "description": "Full-stack Bangladeshi eCommerce store featuring district-wise delivery charges, real mobile payments clearing (bKash/Rocket/Nagad), multi-category filter catalogue, shopping cart, order invoice PDFs, and an analytical control console.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

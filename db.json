@@ -1,0 +1,1053 @@
+{
+  "config": {
+    "theme": {
+      "primaryColor": "emerald",
+      "secondaryColor": "slate",
+      "logoText": "AmarDukaan",
+      "contactEmail": "support@amardukaan.com.bd",
+      "contactPhone": "+880 1711-234567",
+      "address": "Level 4, House 12, Road 5, Dhanmondi, Dhaka 1205, Bangladesh",
+      "facebookUrl": "https://facebook.com/amardukaan",
+      "youtubeUrl": "https://youtube.com/amardukaan"
+    },
+    "homepage": {
+      "heroSliders": [
+        {
+          "id": "slide-1",
+          "title": {
+            "en": "Traditional Jamdani Festival",
+            "bn": "ঐতিহ্যবাহী জামদানী উৎসব"
+          },
+          "subtitle": {
+            "en": "Up to 30% Off on Authentic Handloom Jamdani Sharees",
+            "bn": "খাঁটি তাঁতের জামদানী শাড়িতে ৩০% পর্যন্ত ছাড়"
+          },
+          "imageUrl": "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&q=80&w=1200",
+          "link": "/catalog?category=fashion"
+        },
+        {
+          "id": "slide-2",
+          "title": {
+            "en": "Smart Living, Made in Bangladesh",
+            "bn": "স্মার্ট জীবনযাত্রা, বাংলাদেশে তৈরি"
+          },
+          "subtitle": {
+            "en": "Explore Walton, Miyako and Top Electronics Brands",
+            "bn": "ওয়ালটন, মিয়াকো এবং শীর্ষস্থানীয় ইলেকট্রনিক্স পণ্য এক্সপ্লোর করুন"
+          },
+          "imageUrl": "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&q=80&w=1200",
+          "link": "/catalog?category=electronics"
+        }
+      ],
+      "featuredCategories": [
+        "fashion",
+        "electronics",
+        "groceries",
+        "home-decor"
+      ],
+      "promoBannerUrl": "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=1200",
+      "promoBannerLink": "/catalog?flashSale=true",
+      "promoText": {
+        "en": "Flash Sale Live! Extra BDT 500 Discount with code FLASH500",
+        "bn": "ফ্ল্যাশ সেল লাইভ! FLASH500 কোডে অতিরিক্ত ৫০০ টাকা ছাড়"
+      }
+    },
+    "seo": {
+      "metaTitle": {
+        "en": "AmarDukaan - Best Bangladeshi eCommerce Platform",
+        "bn": "আমারদোকান - বাংলাদেশের সেরা ই-কমার্স প্ল্যাটফর্ম"
+      },
+      "metaDescription": {
+        "en": "Buy authentic handloom clothes, organic food, electronics and home decors directly in BDT with home delivery across Bangladesh.",
+        "bn": "সরাসরি বিডিটি-তে খাঁটি হ্যান্ডলুম কাপড়, অর্গানিক অর্গানিক খাবার, ইলেকট্রনিক্স এবং হোমর সামগ্রী কিনুন। সারা বাংলাদেশে হোম ডেলিভারি পাবেন।"
+      }
+    }
+  },
+  "categories": [
+    {
+      "id": "fashion",
+      "name": {
+        "en": "Fashion & Clothing",
+        "bn": "ফ্যাশন ও ক্লথিং"
+      },
+      "slug": "fashion"
+    },
+    {
+      "id": "electronics",
+      "name": {
+        "en": "Electronics & Gadgets",
+        "bn": "ইলেকট্রনিক্স ও গ্যাজেট"
+      },
+      "slug": "electronics"
+    },
+    {
+      "id": "groceries",
+      "name": {
+        "en": "Organic Food & Groceries",
+        "bn": "অর্গানিক ফুড ও গ্রোসারি"
+      },
+      "slug": "groceries"
+    },
+    {
+      "id": "home-decor",
+      "name": {
+        "en": "Home & Handmade Decor",
+        "bn": "হোম ও হ্যান্ডমেড ডেকোর"
+      },
+      "slug": "home-decor"
+    }
+  ],
+  "products": [
+    {
+      "id": "p1",
+      "name": {
+        "en": "Premium Handloom Dhakai Jamdani Sharee",
+        "bn": "প্রিমিয়াম তাঁতের ঢাকাই জামদানী শাড়ি"
+      },
+      "description": {
+        "en": "Fully hand-woven 80-count cotton Jamdani sharee from Demra, Dhaka. Beautiful leaf-pattern embroidery with gold zari thread work. Lightweight and perfectly fits festive moments like Eid, weddings, and national days.",
+        "bn": "শতভাগ হাতে বোনা ৮০ কাউন্ট সুতি ঢাকাই জামদানী শাড়ি। ঢাকার ডেমরায় কারিগরদের নিখুঁত বুনন। সোনালী জরি সুতা ও মার্জিত পাতার নকশা সমৃদ্ধ। হাল্কা ও যেকোনো উৎসব বা পারিবারিক অনুষ্ঠানে মার্জিত লুকের জন্য পারফেক্ট।"
+      },
+      "shortDescription": {
+        "en": "Authentic 12-Hand Traditional Handloom Jamdani Sharee",
+        "bn": "ঐতিহ্যবাহী ১২ হাত খাঁটি তাঁতের সুতির জামদানী শাড়ি"
+      },
+      "price": 12500,
+      "compareAtPrice": 15000,
+      "sku": "JM-DHAKA-102",
+      "stock": 8,
+      "rating": 4.8,
+      "images": [
+        "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&q=80&w=600",
+        "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&q=80&w=600"
+      ],
+      "categoryId": "fashion",
+      "brand": "Dhakai Weaves",
+      "variants": [
+        {
+          "id": "v1-1",
+          "size": "12 Feet (Standard)",
+          "color": "Royal Red & Gold",
+          "sku": "JM-DHAKA-102-RD",
+          "price": 12500,
+          "stock": 5
+        },
+        {
+          "id": "v1-2",
+          "size": "12 Feet (Standard)",
+          "color": "Classic Black",
+          "sku": "JM-DHAKA-102-BL",
+          "price": 12900,
+          "stock": 3
+        }
+      ],
+      "specifications": [
+        {
+          "key": "Material",
+          "value": "80-Count Pure Cotton & Silk zari"
+        },
+        {
+          "key": "Weave Style",
+          "value": "Handloom Traditional Jamdani"
+        },
+        {
+          "key": "Origin",
+          "value": "Demra, Dhaka, Bangladesh"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "r1",
+          "customerName": "Sabrina Kamal",
+          "rating": 5,
+          "comment": "Absolutely marvelous work. Genuine handloom Jamdani. Will buy again!",
+          "date": "2026-05-12"
+        },
+        {
+          "id": "r2",
+          "customerName": "Farhana J.",
+          "rating": 4,
+          "comment": "Very elegant, very soft. Delivery took 2 days in Dhaka.",
+          "date": "2026-05-24"
+        }
+      ],
+      "isFeatured": true,
+      "isNewArrival": true,
+      "isBestSeller": true,
+      "isFlashSale": false
+    },
+    {
+      "id": "p2",
+      "name": {
+        "en": "Semi-Silk Festive Panjabi for Men",
+        "bn": "উৎসবের সেমি-সিল্ক ছেলেদের পাঞ্জাবী"
+      },
+      "description": {
+        "en": "Luxurious semi-silk Panjabi designed for festive comfort. Styled with hand-embroided band collar and matching placket buttons. Extremely elegant drape and lightweight summer fabric.",
+        "bn": "উৎসবের দিনগুলোতে পরম কমফোর্টের জন্য তৈরি লাক্সারিয়াস সেমি-সিল্ক পাঞ্জাবী। মার্জিত এমব্রয়ডারি কলার এবং গর্জিয়াস বোতাম। গরমে আরামদায়ক কাপড়ের মান।"
+      },
+      "shortDescription": {
+        "en": "Premium wedding & festive semi-silk Panjabi",
+        "bn": "প্রিমিয়াম উৎসব ও বিয়ের সেমি-সিল্ক পাঞ্জাবী"
+      },
+      "price": 3800,
+      "compareAtPrice": 4500,
+      "sku": "PJ-FEST-203",
+      "stock": 15,
+      "rating": 4.5,
+      "images": [
+        "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?auto=format&fit=crop&q=80&w=600",
+        "https://images.unsplash.com/photo-1597983073493-88cd35cf93b0?auto=format&fit=crop&q=80&w=600"
+      ],
+      "categoryId": "fashion",
+      "brand": "Dorji Bari",
+      "variants": [
+        {
+          "id": "v2-1",
+          "size": "40",
+          "color": "Slate Grey",
+          "sku": "PJ-FEST-203-40",
+          "price": 3800,
+          "stock": 5
+        },
+        {
+          "id": "v2-2",
+          "size": "42",
+          "color": "Slate Grey",
+          "sku": "PJ-FEST-203-42",
+          "price": 3800,
+          "stock": 5
+        },
+        {
+          "id": "v2-3",
+          "size": "44",
+          "color": "Royal Blue",
+          "sku": "PJ-FEST-203-44-BL",
+          "price": 3950,
+          "stock": 5
+        }
+      ],
+      "specifications": [
+        {
+          "key": "Fabric",
+          "value": "Premium Art-Silk Blend"
+        },
+        {
+          "key": "Care",
+          "value": "Dry Clean Recommended"
+        },
+        {
+          "key": "Fit",
+          "value": "Semi-Fit Traditional"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "r3",
+          "customerName": "Mahmudul Hasan",
+          "rating": 5,
+          "comment": "Fits perfectly. The grey color looks highly professional. Highly recommended.",
+          "date": "2026-04-18"
+        }
+      ],
+      "isFeatured": true,
+      "isNewArrival": false,
+      "isBestSeller": true,
+      "isFlashSale": true,
+      "flashSaleDiscount": 15
+    },
+    {
+      "id": "p3",
+      "name": {
+        "en": "Premium Sundarban Organic Khalisha Honey",
+        "bn": "প্রিমিয়াম সুন্দরবনের খাঁটি খলিশা মধু"
+      },
+      "description": {
+        "en": "100% raw, cold-filtered natural Khalisha flower honey sourced directly from Mawali collectors in deep Sundarban forests during spring. Pure honey that never turns sugary.",
+        "bn": "১০০% কাঁচা, কোল্ড-ফিল্টারড সুন্দরবনের প্রাকৃতিক খলিশা ফুলের মধু। বসন্তকালে সরাসরি মৌয়ালদের থেকে সংগৃহীত। কোনো ভেজাল বা কৃত্রিম চিনি ছাড়াই বোতলজাতকৃত।"
+      },
+      "shortDescription": {
+        "en": "Raw Natural Khalisha Single-Origin Honey",
+        "bn": "সুন্দরবনের খাঁটি প্রাকৃতিকভাবে সংগৃহীত খলিশা ফুলের মধু"
+      },
+      "price": 950,
+      "compareAtPrice": 1100,
+      "sku": "HN-SUNDAR-500G",
+      "stock": 50,
+      "rating": 4.9,
+      "images": [
+        "https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&q=80&w=600"
+      ],
+      "categoryId": "groceries",
+      "brand": "Shoddo",
+      "variants": [
+        {
+          "id": "v3-1",
+          "size": "500g Glass Jar",
+          "sku": "HN-SUNDAR-500G",
+          "price": 950,
+          "stock": 30
+        },
+        {
+          "id": "v3-2",
+          "size": "1kg Glass Jar",
+          "sku": "HN-SUNDAR-1KG",
+          "price": 1800,
+          "stock": 20
+        }
+      ],
+      "specifications": [
+        {
+          "key": "Purity",
+          "value": "100% Laboratory Verified Pure"
+        },
+        {
+          "key": "Flower Type",
+          "value": "Khalisha Flower Single Origin"
+        },
+        {
+          "key": "Sourced From",
+          "value": "Satkhira Range, Sundarbans"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "r4",
+          "customerName": "Ahsan Habib",
+          "rating": 5,
+          "comment": "I am amazed by the distinct aroma of Khalisha flower. This is the real deal.",
+          "date": "2026-05-01"
+        }
+      ],
+      "isFeatured": false,
+      "isNewArrival": true,
+      "isBestSeller": true,
+      "isFlashSale": false
+    },
+    {
+      "id": "p4",
+      "name": {
+        "en": "Walton Smart Soundbar WSB-120",
+        "bn": "ওয়ালটন স্মার্ট সাউন্ডবার WSB-১২০"
+      },
+      "description": {
+        "en": "Rich home theater sound bar proudly engineered by Walton. Features 120W cinematic sound, Bluetooth v5.1, HDMI ARC, Optic input, and a deep bass wireless subwoofer.",
+        "bn": "ওয়ালটনের তৈরি সমৃদ্ধ ১২০ ওয়াট সিনেমাটিক সাউন্ডের হোম থিয়েটার সাউন্ডবার। ব্লুটুথ ৫.১, এইচডিএমআই এআরসি, অপটিক্যাল ইনপুট এবং দুর্দান্ত ওয়ারলেস সাবউফার সমৃদ্ধ।"
+      },
+      "shortDescription": {
+        "en": "120W Bluetooth Soundbar with Subwoofer",
+        "bn": "১২০ ওয়াট শক্তিশালী ব্লুটুথ সাউন্ডবার ও সাবউফার"
+      },
+      "price": 8500,
+      "compareAtPrice": 9990,
+      "sku": "WT-SND-120",
+      "stock": 4,
+      "rating": 4.6,
+      "images": [
+        "https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&q=80&w=600"
+      ],
+      "categoryId": "electronics",
+      "brand": "Walton",
+      "variants": [
+        {
+          "id": "v4-1",
+          "size": "Standard Coaxial",
+          "sku": "WT-SND-120-ST",
+          "price": 8500,
+          "stock": 4
+        }
+      ],
+      "specifications": [
+        {
+          "key": "Total Power Output",
+          "value": "120W RMS"
+        },
+        {
+          "key": "Subwoofer Range",
+          "value": "6.5 Inch Active Bass"
+        },
+        {
+          "key": "Connectivity",
+          "value": "Bluetooth v5.1, Optical, HDMI ARC, AUX"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "r5",
+          "customerName": "Tanvir Ahmed",
+          "rating": 4,
+          "comment": "Excellent bass response for Bangladeshi apartments. Build quality is solid.",
+          "date": "2026-05-15"
+        }
+      ],
+      "isFeatured": true,
+      "isNewArrival": true,
+      "isBestSeller": false,
+      "isFlashSale": true,
+      "flashSaleDiscount": 10
+    },
+    {
+      "id": "p5",
+      "name": {
+        "en": "Handcrafted Clay Terracotta Flower Vase",
+        "bn": "হাতে তৈরি মাটির পোড়ামাটির বা টেরাকোটা ফুলদানী"
+      },
+      "description": {
+        "en": "Exquisite terracotta flower vase handmade by traditional clay artisans of Bijoypur, Comilla. Crafted from organic alluvial soil, baked in high-temperature wood kilns, and hand-painted.",
+        "bn": "কুমিল্লার বিজয়পুরের ঐতিহ্যবাহী মৃৎশিল্পীদের তৈরি দৃষ্টিনন্দন টেরাকোটা মাটির ফুলদানি। দোআঁশ মাটিতে হাত দিয়ে গড়ে তোলা ও কাঠের চুল্লিতে পোড়ানো। নান্দনিক রঙের মিশ্রণ।"
+      },
+      "shortDescription": {
+        "en": "Traditional Alluvial Clay Hand-Painted Vase",
+        "bn": "বিজয়পুরের ঐতিহ্যবাহী পোড়ামাটির হাতে আঁকা চমৎকার ফুলদানী"
+      },
+      "price": 1200,
+      "compareAtPrice": 1600,
+      "sku": "TC-BIJOY-33",
+      "stock": 12,
+      "rating": 4.4,
+      "images": [
+        "https://images.unsplash.com/photo-1612196808214-b8e1d6145a8c?auto=format&fit=crop&q=80&w=600"
+      ],
+      "categoryId": "home-decor",
+      "brand": "Bijoypur Artisans",
+      "variants": [
+        {
+          "id": "v5-1",
+          "size": "12 Inch Height",
+          "color": "Earth Brown & Gold",
+          "sku": "TC-BIJOY-33-BR",
+          "price": 1200,
+          "stock": 12
+        }
+      ],
+      "specifications": [
+        {
+          "key": "Material",
+          "value": "100% Baked Natural Clay (Terracotta)"
+        },
+        {
+          "key": "Height",
+          "value": "12 Inches"
+        },
+        {
+          "key": "Origin",
+          "value": "Bijoypur, Comilla, Bangladesh"
+        }
+      ],
+      "reviews": [],
+      "isFeatured": false,
+      "isNewArrival": false,
+      "isBestSeller": false,
+      "isFlashSale": false
+    },
+    {
+      "id": "p6",
+      "name": {
+        "en": "Authentic Handloom Tangail Cotton Saree",
+        "bn": "ঐতিহ্যবাহী তাঁতের টাঙ্গাইল সুতি শাড়ি"
+      },
+      "description": {
+        "en": "Woven by the master weavers of Pathrail, Tangail, this 100% pure cotton saree features classic handloom craftsmanship, fine thread embroidery, and contrasting border patterns. Perfect for everyday elegance and cultural festivities.",
+        "bn": "টাঙ্গাইলের পাথরাইলের দক্ষ কারিগরদের বোনা ১০০% খাঁটি সুতি শাড়ি। ঐতিহ্যবাহী তাঁত ডিজাইন, নিখুঁত সুতার কাজ এবং আকর্ষণীয় পাড় নকশা। সাধারণ আরামদায়ক ব্যবহার এবং যেকোনো উৎসবের জন্য চমৎকার।"
+      },
+      "shortDescription": {
+        "en": "Pure Handloom Cotton Saree from Pathrail, Tangail",
+        "bn": "টাঙ্গাইলের পাথরাইলের চমৎকার তাঁতের সুতি শাড়ি"
+      },
+      "price": 2800,
+      "compareAtPrice": 3500,
+      "sku": "SR-TNG-101",
+      "stock": 14,
+      "rating": 4.7,
+      "images": [
+        "https://images.unsplash.com/photo-1610030470298-40b355e7178c?auto=format&fit=crop&q=80&w=600"
+      ],
+      "categoryId": "fashion",
+      "brand": "Tangail Tant",
+      "variants": [
+        {
+          "id": "v6-1",
+          "size": "12 Feet Standard",
+          "color": "Mustard Yellow & Red",
+          "sku": "SR-TNG-101-YL",
+          "price": 2800,
+          "stock": 8
+        },
+        {
+          "id": "v6-2",
+          "size": "12 Feet Standard",
+          "color": "Emerald Green",
+          "sku": "SR-TNG-101-GR",
+          "price": 2800,
+          "stock": 6
+        }
+      ],
+      "specifications": [
+        {
+          "key": "Material",
+          "value": "100% Cotton Handloom"
+        },
+        {
+          "key": "Weave Origin",
+          "value": "Pathrail, Tangail, Bangladesh"
+        },
+        {
+          "key": "Length",
+          "value": "12 cubits (Standard)"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "r6",
+          "customerName": "Tanha Islam",
+          "rating": 5,
+          "comment": "Authentic Tangail cotton! Very lightweight and comfortable. Love the red border work.",
+          "date": "2026-05-18"
+        }
+      ],
+      "isFeatured": true,
+      "isNewArrival": true,
+      "isBestSeller": true,
+      "isFlashSale": false
+    },
+    {
+      "id": "p7",
+      "name": {
+        "en": "Premium Genuine Bangladesh Leather Slim Wallet",
+        "bn": "প্রিমিয়াম খাঁটি চামড়ার স্লিম ওয়ালেট"
+      },
+      "description": {
+        "en": "Engineered from top-grain locally sourced Bangladeshi cowhide leather. This slim bi-fold wallet contains 6 card slots, a secure cash compartment, and RFID blocking technology to safeguard your bank cards.",
+        "bn": "বাংলাদেশের টপ-গ্রেইন প্রিমিয়াম গরুর চামড়া দিয়ে তৈরি স্লিম বাই-ফোল্ড ওয়ালেট। এতে আছে ৬টি কার্ড স্লট, সুরক্ষিত ক্যাশ পকেট এবং তথ্য সুরক্ষার জন্য আরএফআইডি ব্লকিং প্রযুক্তি।"
+      },
+      "shortDescription": {
+        "en": "Genuine Bovine Leather Wallet with RFID Blocking",
+        "bn": "খাঁটি দেশী চামড়ার তৈরি আরএফআইডি সুরক্ষিত ওয়ালেট"
+      },
+      "price": 1450,
+      "compareAtPrice": 1850,
+      "sku": "LW-BD-501",
+      "stock": 25,
+      "rating": 4.6,
+      "images": [
+        "https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&q=80&w=600"
+      ],
+      "categoryId": "fashion",
+      "brand": "Apex Leather",
+      "variants": [
+        {
+          "id": "v7-1",
+          "size": "Standard",
+          "color": "Classic Brown",
+          "sku": "LW-BD-501-BR",
+          "price": 1450,
+          "stock": 15
+        },
+        {
+          "id": "v7-2",
+          "size": "Standard",
+          "color": "Matte Black",
+          "sku": "LW-BD-501-BL",
+          "price": 1450,
+          "stock": 10
+        }
+      ],
+      "specifications": [
+        {
+          "key": "Material",
+          "value": "100% Genuine Bovine Leather"
+        },
+        {
+          "key": "Features",
+          "value": "RFID Blocking, 6 Card Slots, Cash Slot"
+        }
+      ],
+      "reviews": [],
+      "isFeatured": false,
+      "isNewArrival": true,
+      "isBestSeller": false,
+      "isFlashSale": true,
+      "flashSaleDiscount": 10
+    },
+    {
+      "id": "p8",
+      "name": {
+        "en": "Premium Organic ChiniGura Kalojira Rice",
+        "bn": "প্রিমিয়াম অর্গানিক চিনিগুঁড়া সুগন্ধি চাল"
+      },
+      "description": {
+        "en": "Sourced from the fertile fields of Dinajpur, our premium non-boiled ChiniGura aromatic rice is perfect for mouth-watering Polao, Biryani, and Payesh. Organic, pesticide-free, and thoroughly sorted.",
+        "bn": "দিনাজপুরের উর্বর পলিময় মাঠে উৎপাদিত প্রিমিয়াম চিনিগুঁড়া বা কালোজিরা সুগন্ধি চাল। বিয়ের পোলাও, বিরিয়ানি ও সুস্বাদু পায়েশের জন্য অনবদ্য। সম্পূর্ণ অর্গানিক এবং ধুলোবালি মুক্ত।"
+      },
+      "shortDescription": {
+        "en": "Selected Dinajpur Aromatic ChiniGura Rice (Pesticide-Free)",
+        "bn": "দিনাজপুরের ঐতিহ্যবাহী প্রিমিয়াম চিনিগুঁড়া সুগন্ধি পোলার চাল"
+      },
+      "price": 160,
+      "compareAtPrice": 180,
+      "sku": "RC-CHINI-2KG",
+      "stock": 100,
+      "rating": 4.9,
+      "images": [
+        "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&q=80&w=600"
+      ],
+      "categoryId": "groceries",
+      "brand": "Dinajpur Agro",
+      "variants": [
+        {
+          "id": "v8-1",
+          "size": "2kg Poly Pack",
+          "sku": "RC-CHINI-2KG",
+          "price": 160,
+          "stock": 60
+        },
+        {
+          "id": "v8-2",
+          "size": "5kg Canvas Pack",
+          "sku": "RC-CHINI-5KG",
+          "price": 380,
+          "stock": 40
+        }
+      ],
+      "specifications": [
+        {
+          "key": "Type",
+          "value": "ChiniGura / Kalojira Aromatic Scented Rice"
+        },
+        {
+          "key": "Origin",
+          "value": "Dinajpur, Bangladesh"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "r8",
+          "customerName": "Hasan Al Banna",
+          "rating": 5,
+          "comment": "Outstanding aroma! The rice is small and perfectly whole. Polao turned out amazing.",
+          "date": "2026-05-22"
+        }
+      ],
+      "isFeatured": true,
+      "isNewArrival": false,
+      "isBestSeller": true,
+      "isFlashSale": false
+    },
+    {
+      "id": "p9",
+      "name": {
+        "en": "Pure Cold-Pressed Wood-Ghanni Mustard Oil",
+        "bn": "কাঠের ঘানিতে ভাঙা খাঁটি সরিষার তেল"
+      },
+      "description": {
+        "en": "Traditionally extracted from selected local mustard seeds using wooden Ghani. Retains natural flavor, nutrition, and heavy pungency. Absolutely zero added preservatives or chemicals. Made for dynamic Bangladeshi kitchen setups.",
+        "bn": "পরম ঐতিহ্যবাহী কাঠের ঘানিতে ভাঙা বিশুদ্ধ সরিষার তেল। এর তীব্র ঝাজালো ঘ্রাণ ও গুণাগুণ শতভাগ অটুট। কোনো ধরনের ভেজাল বা কৃত্রিম রঙ ছাড়াই বোতলজাত করা।"
+      },
+      "shortDescription": {
+        "en": "100% Pure Cold-Pressed Traditional Ghani Mustard Oil",
+        "bn": "কাঠের ঘানিতে ভাঙা খাঁটি ঐতিহ্যবাহী ঝাজালো সরিষার তেল"
+      },
+      "price": 280,
+      "compareAtPrice": 320,
+      "sku": "OL-MST-1L",
+      "stock": 80,
+      "rating": 4.8,
+      "images": [
+        "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&q=80&w=600"
+      ],
+      "categoryId": "groceries",
+      "brand": "Shorisha Ghor",
+      "variants": [
+        {
+          "id": "v9-1",
+          "size": "1 Litre Bottle",
+          "sku": "OL-MST-1L",
+          "price": 280,
+          "stock": 50
+        },
+        {
+          "id": "v9-2",
+          "size": "2 Litre Can",
+          "sku": "OL-MST-2L",
+          "price": 540,
+          "stock": 30
+        }
+      ],
+      "specifications": [
+        {
+          "key": "Extraction Method",
+          "value": "Cold-Pressed Wooden Ghani (ঘানি)"
+        },
+        {
+          "key": "Ingredients",
+          "value": "100% Pure Mustard Seeds"
+        }
+      ],
+      "reviews": [],
+      "isFeatured": false,
+      "isNewArrival": true,
+      "isBestSeller": true,
+      "isFlashSale": false
+    },
+    {
+      "id": "p10",
+      "name": {
+        "en": "Miyako Premium Electric Kettle MJK-100",
+        "bn": "মিয়াকো প্রিমিয়াম ইলেকট্রিক কেটলি MJK-১০০"
+      },
+      "description": {
+        "en": "High performance 1.5L cordless electric kettle with double-wall cool-touch body. Engineered with fast-boiling 1500W element, automatic dry-boil safety shutoff, and food-grade stainless steel interior.",
+        "bn": "মিয়াকো ১.৫ লিটার ডাবল-ওয়াল কুল-টাচ ইলেকট্রিক কেটলি। ১৫০০ ওয়াট দ্রুত গরম প্রযুক্তির সেগমেন্টের ডাবল প্রোটেকশন, স্টেইনলেস স্টিল ম্যাটেরিয়াল এবং ড্রাই-বয়েল অটো অফ সুবিধা।"
+      },
+      "shortDescription": {
+        "en": "1.5L Cool-Touch Cordless Electric Kettle",
+        "bn": "মিয়াকো ১.৫ লিটার বডি-সুরক্ষিত কর্ডলেস ইলেকট্রিক কেটলি"
+      },
+      "price": 1850,
+      "compareAtPrice": 2200,
+      "sku": "EL-MIY-MK100",
+      "stock": 18,
+      "rating": 4.5,
+      "images": [
+        "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&q=80&w=600"
+      ],
+      "categoryId": "electronics",
+      "brand": "Miyako",
+      "variants": [
+        {
+          "id": "v10-1",
+          "size": "1.5 Litre Standard",
+          "color": "Classic Silver & Black",
+          "sku": "EL-MIY-MK100-SL",
+          "price": 1850,
+          "stock": 18
+        }
+      ],
+      "specifications": [
+        {
+          "key": "Power",
+          "value": "1500 Watts 220V"
+        },
+        {
+          "key": "Capacity",
+          "value": "1.5 Litres"
+        },
+        {
+          "key": "Safety",
+          "value": "Auto Shutoff, Boil-Dry Protection"
+        }
+      ],
+      "reviews": [],
+      "isFeatured": true,
+      "isNewArrival": true,
+      "isBestSeller": false,
+      "isFlashSale": false
+    },
+    {
+      "id": "p11",
+      "name": {
+        "en": "Walton High Speed Rechargeable Desk Fan",
+        "bn": "ওয়ালটন হাই স্পিড রিচার্জেবল টেবিল ফ্যান"
+      },
+      "description": {
+        "en": "Beat load shedding with Walton rechargeable desk fan. Equipped with a long-lasting Lithium-ion battery providing up to 8 hours of continuous breeze, 3-speed adjustable airflow, and integrated LED nightlight.",
+        "bn": "লোডশেডিং এর মোক্ষম সমাধান ওয়ালটন রিচার্জেবল ফ্যান। শক্তিশালী লিথিয়াম ব্যাটারির সাহায্যে টানা ৮ ঘণ্টা মৃদু হাওয়া, ৩ স্পিড কন্ট্রোল এবং জরুরি ব্যবহারের জন্য চমৎকার এলইডি নাইট লাইট।"
+      },
+      "shortDescription": {
+        "en": "12-Inch Rechargeable Oscillating Fan",
+        "bn": "ওয়ালটন ১২-ইঞ্চি চার্জিং টেবিল ফ্যান"
+      },
+      "price": 4200,
+      "compareAtPrice": 4800,
+      "sku": "EL-WT-FAN12",
+      "stock": 10,
+      "rating": 4.6,
+      "images": [
+        "https://images.unsplash.com/photo-1618944847023-38aa001235f0?auto=format&fit=crop&q=80&w=600"
+      ],
+      "categoryId": "electronics",
+      "brand": "Walton",
+      "variants": [
+        {
+          "id": "v11-1",
+          "size": "12-Inch Blades",
+          "color": "Ocean Blue & White",
+          "sku": "EL-WT-FAN12-BL",
+          "price": 4200,
+          "stock": 10
+        }
+      ],
+      "specifications": [
+        {
+          "key": "Battery",
+          "value": "12V 4.5Ah Rechargeable Lead-Acid"
+        },
+        {
+          "key": "Backup Time",
+          "value": "High: 3 hours, Low: 8 hours"
+        }
+      ],
+      "reviews": [],
+      "isFeatured": false,
+      "isNewArrival": false,
+      "isBestSeller": true,
+      "isFlashSale": true,
+      "flashSaleDiscount": 12
+    },
+    {
+      "id": "p12",
+      "name": {
+        "en": "Handcrafted Organic Jute Fiber Rug Accent",
+        "bn": "হাতে বোনা খাঁটি পাটের গোল টেবিল গালিচা"
+      },
+      "description": {
+        "en": "Woven with premium-grade golden jute fiber, the most sustainable organic material in Bangladesh. Features a modern geometric coiled layout with clean margins and elegant edge stitches. Gives a boho, organic feel to your living room.",
+        "bn": "বাংলাদেশের সোনালী আঁশ পাট দিয়ে তৈরি খাঁটি হাতে বোনা চমৎকার রাউন্ড কার্পেট বা ডেকোরেটিভ গালিচা। চমৎকার বৃত্তাকার বুনন যা বসার ঘরের সৌন্দর্য বহুলাংশে বৃদ্ধি করে।"
+      },
+      "shortDescription": {
+        "en": "100% Eco-Friendly Golden Jute Hand-Spun Area Rug",
+        "bn": "১০০% পরিবেশবান্ধব সোনালী পাটের চমৎকার বসার ঘরের কার্পেট"
+      },
+      "price": 2400,
+      "compareAtPrice": 3200,
+      "sku": "HD-JUT-RU4",
+      "stock": 15,
+      "rating": 4.8,
+      "images": [
+        "https://images.unsplash.com/photo-1600121848594-d8644e57abab?auto=format&fit=crop&q=80&w=600"
+      ],
+      "categoryId": "home-decor",
+      "brand": "Golden Fibers",
+      "variants": [
+        {
+          "id": "v12-1",
+          "size": "4 Feet Diameter",
+          "color": "Natural Jute Gold",
+          "sku": "HD-JUT-RU4-4D",
+          "price": 2400,
+          "stock": 10
+        },
+        {
+          "id": "v12-2",
+          "size": "6 Feet Diameter",
+          "color": "Natural Jute Gold",
+          "sku": "HD-JUT-RU4-6D",
+          "price": 3900,
+          "stock": 5
+        }
+      ],
+      "specifications": [
+        {
+          "key": "Material",
+          "value": "100% Export Quality Golden Jute Fiber"
+        },
+        {
+          "key": "Weave Style",
+          "value": "Circular Braided Eco-friendly Rug"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "r12",
+          "customerName": "Siddiqur Rahman",
+          "rating": 5,
+          "comment": "Impressive workmanship. Completely organic vibe, perfect size for my center coffee table.",
+          "date": "2026-05-20"
+        }
+      ],
+      "isFeatured": true,
+      "isNewArrival": true,
+      "isBestSeller": false,
+      "isFlashSale": false
+    },
+    {
+      "id": "p13",
+      "name": {
+        "en": "Classic Hand-woven Premium Sylhet Sital Pati",
+        "bn": "সিলেটের ঐতিহ্যবাহী প্রিমিয়াম শীতল পাটি"
+      },
+      "description": {
+        "en": "Authentic Sital Pati handcraft woven in Sylhet from Murta plants. Known for its cooling properties and silky texture, it acts as a magical summer bed/floor mat. Keeps body heat down naturally.",
+        "bn": "মুর্তা গাছ থেকে তৈরি সিলেটের বিশ্বখ্যাত ঐতিহ্যবাহী প্রিমিয়াম শীতল পাটি। দারুণ আরামদায়ক ও ঠান্ডাদায়ক গুণাগুণ সম্পন্ন। বসার বা ঘুমানোর জন্য গরমে অসম্ভব আরাম।"
+      },
+      "shortDescription": {
+        "en": "Sylhet's Heritage Organic Cane Cooling Bed Mat",
+        "bn": "সিলেটের সম্পূর্ণ প্রাকৃতিকভাবে তৈরি শীতল শীতল পাটি"
+      },
+      "price": 1950,
+      "compareAtPrice": 2500,
+      "sku": "HD-STL-PATI",
+      "stock": 8,
+      "rating": 4.9,
+      "images": [
+        "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&q=80&w=600"
+      ],
+      "categoryId": "home-decor",
+      "brand": "Sylhet Cane Crafts",
+      "variants": [
+        {
+          "id": "v13-1",
+          "size": "5ft x 7ft (Standard)",
+          "color": "Natural Wood & Ruby Weave",
+          "sku": "HD-STL-PATI-S",
+          "price": 1950,
+          "stock": 8
+        }
+      ],
+      "specifications": [
+        {
+          "key": "Raw Material",
+          "value": "100% Murta Plant (Schumannianthus dichotomus)"
+        },
+        {
+          "key": "Origin",
+          "value": "Sylhet, Bangladesh"
+        }
+      ],
+      "reviews": [],
+      "isFeatured": true,
+      "isNewArrival": false,
+      "isBestSeller": true,
+      "isFlashSale": false
+    }
+  ],
+  "orders": [
+    {
+      "id": "ORD-20260530-01",
+      "customerName": "Imran Khan",
+      "customerPhone": "01789123456",
+      "customerEmail": "imran@gmail.com",
+      "shippingAddress": "Block E, House 42, Mirzapur, Tangail",
+      "districtId": "tangail",
+      "upazilaId": "mirzapur",
+      "items": [
+        {
+          "productId": "p2",
+          "variantId": "v2-2",
+          "name": {
+            "en": "Semi-Silk Festive Panjabi for Men",
+            "bn": "উৎসবের সেমি-সিল্ক ছেলেদের পাঞ্জাবী"
+          },
+          "price": 3800,
+          "quantity": 1,
+          "image": "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?auto=format&fit=crop&q=80&w=150",
+          "selectedSize": "42",
+          "selectedColor": "Slate Grey"
+        }
+      ],
+      "subtotal": 3800,
+      "deliveryCharge": 130,
+      "discount": 500,
+      "tax": 0,
+      "total": 3430,
+      "paymentMethod": "bKash",
+      "paymentStatus": "Paid",
+      "transactionId": "BK992A77FD",
+      "status": "Confirmed",
+      "createdAt": "2026-05-29T10:15:00Z",
+      "history": [
+        {
+          "status": "Pending",
+          "note": "Order placed, awaiting transaction confirmation",
+          "timestamp": "2026-05-29T10:15:00Z"
+        },
+        {
+          "status": "Confirmed",
+          "note": "bKash Verified Automatically. TXN ID: BK992A77FD",
+          "timestamp": "2026-05-29T10:20:00Z"
+        }
+      ],
+      "courierName": "Steadfast Courier",
+      "trackingNumber": "ST-881902-BD"
+    }
+  ],
+  "coupons": [
+    {
+      "id": "c1",
+      "code": "WINTER20",
+      "type": "percentage",
+      "value": 20,
+      "expiryDate": "2026-12-31",
+      "usageLimit": 100,
+      "usageCount": 22
+    },
+    {
+      "id": "c2",
+      "code": "FREESHIP",
+      "type": "free_shipping",
+      "value": 0,
+      "expiryDate": "2026-09-30",
+      "usageLimit": 50,
+      "usageCount": 15
+    },
+    {
+      "id": "c3",
+      "code": "AMAR500",
+      "type": "fixed",
+      "value": 500,
+      "expiryDate": "2026-08-15",
+      "usageLimit": 200,
+      "usageCount": 45,
+      "minOrderAmount": 2000
+    }
+  ],
+  "paymentLogs": [
+    {
+      "id": "pay-1",
+      "orderId": "ORD-20260530-01",
+      "amount": 3430,
+      "paymentMethod": "bKash",
+      "transactionId": "BK992A77FD",
+      "status": "Verified",
+      "timestamp": "2026-05-29T10:20:00Z",
+      "customerPhone": "01789123456"
+    }
+  ],
+  "activityLogs": [
+    {
+      "id": "audit-1",
+      "adminName": "Admin Chief",
+      "action": "System Bootstrapped",
+      "details": "In-memory JSON database initialized with local seed data and Bangladesh region rates.",
+      "timestamp": "2026-05-30T09:30:00Z"
+    }
+  ],
+  "blogs": [
+    {
+      "id": "b1",
+      "title": {
+        "en": "The Unfading Loom of Dhakai Jamdani",
+        "bn": "ঢাকাই জামদানির অবিনশ্বর বুনন শৈলী"
+      },
+      "content": {
+        "en": "Dhakai Jamdani is not just a clothing fabric; it is a live narrative of Bangladeshi high craftsmanship. Recognized by UNESCO as an Intangible Cultural Heritage of Humanity, Jamdani's unique geographic origin relies heavily on the moist air of the Shitalakshya River...",
+        "bn": "ঢাকাই জামদানী কেবল এক টুকরো কাপড় নয়; এটি বাংলার এক প্রাচীন ও সমৃদ্ধ ঐতিহ্যের ধারক। ইউনেস্কো কর্তৃক 'ইনট্যানজিবল কালচারাল হেরিটেজ' হিসেবে ঘোষিত জামদানির সূক্ষ্মতা নির্ভর করে শীতলক্ষ্যা নদীর আবহাওয়া এবং এ অঞ্চলের কারিগরদের বংশপরম্পরায় লাভ করা নৈপুণ্যের ওপর..."
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&q=80&w=600",
+      "author": "Zubaida Rahman",
+      "createdAt": "2026-04-10T11:00:00Z"
+    }
+  ],
+  "faqs": [
+    {
+      "question": {
+        "en": "How long does home delivery take?",
+        "bn": "হোম ডেলিভারি পেতে কতদিন সময় লাগবে?"
+      },
+      "answer": {
+        "en": "Inside Dhaka takes 24 to 48 hours. Outside Dhaka takes 2 to 4 working days via top courier partners like RedX, Steadfast, and Pathao.",
+        "bn": "ঢাকা সিটির ভেতরে ২৪ থেকে ৪৮ ঘণ্টা। ঢাকার বাইরে যেকোনো জেলা শহরে রেডএক্স বা পাঠাও ফাস্ট কুরিয়ার সার্ভিসের মাধ্যমে ২ থেকে ৪ কার্যদিবসের মধ্যে ডেলিভারি পাবেন।"
+      }
+    },
+    {
+      "question": {
+        "en": "What mobile payment systems do you accept?",
+        "bn": "আপনারা কি কি মোবাইল পেমেন্ট গ্রহণ করেন?"
+      },
+      "answer": {
+        "en": "We integrate fully secure bKash, Rocket, and Nagad. Once you cash-out/merchant-pay or send-money, provide the Transaction ID inside our payment validation system for auto confirmation.",
+        "bn": "আমরা সম্পূর্ণ সুরক্ষার সাথে বিকাশ, রকেট এবং নগদ পেমেন্ট গ্রহণ করি। ক্যাশআউট বা সেন্ডমানি সম্পন্ন করে ট্রানজেকশন আইডি প্রদান করলেই স্বয়ংক্রিয়ভাবে পেমেন্ট ভেরিফাই হয়ে যাবে।"
+      }
+    }
+  ]
+}

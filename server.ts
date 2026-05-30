@@ -372,6 +372,269 @@ const DEFAULT_PRODUCTS: Product[] = [
     isNewArrival: false,
     isBestSeller: false,
     isFlashSale: false
+  },
+  {
+    id: "p6",
+    name: { en: "Authentic Handloom Tangail Cotton Saree", bn: "ঐতিহ্যবাহী তাঁতের টাঙ্গাইল সুতি শাড়ি" },
+    description: {
+      en: "Woven by the master weavers of Pathrail, Tangail, this 100% pure cotton saree features classic handloom craftsmanship, fine thread embroidery, and contrasting border patterns. Perfect for everyday elegance and cultural festivities.",
+      bn: "টাঙ্গাইলের পাথরাইলের দক্ষ কারিগরদের বোনা ১০০% খাঁটি সুতি শাড়ি। ঐতিহ্যবাহী তাঁত ডিজাইন, নিখুঁত সুতার কাজ এবং আকর্ষণীয় পাড় নকশা। সাধারণ আরামদায়ক ব্যবহার এবং যেকোনো উৎসবের জন্য চমৎকার।"
+    },
+    shortDescription: { en: "Pure Handloom Cotton Saree from Pathrail, Tangail", bn: "টাঙ্গাইলের পাথরাইলের চমৎকার তাঁতের সুতি শাড়ি" },
+    price: 2800,
+    compareAtPrice: 3500,
+    sku: "SR-TNG-101",
+    stock: 14,
+    rating: 4.7,
+    images: [
+      "https://images.unsplash.com/photo-1610030470298-40b355e7178c?auto=format&fit=crop&q=80&w=600"
+    ],
+    categoryId: "fashion",
+    brand: "Tangail Tant",
+    variants: [
+      { id: "v6-1", size: "12 Feet Standard", color: "Mustard Yellow & Red", sku: "SR-TNG-101-YL", price: 2800, stock: 8 },
+      { id: "v6-2", size: "12 Feet Standard", color: "Emerald Green", sku: "SR-TNG-101-GR", price: 2800, stock: 6 }
+    ],
+    specifications: [
+      { key: "Material", value: "100% Cotton Handloom" },
+      { key: "Weave Origin", value: "Pathrail, Tangail, Bangladesh" },
+      { key: "Length", value: "12 cubits (Standard)" }
+    ],
+    reviews: [
+      { id: "r6", customerName: "Tanha Islam", rating: 5, comment: "Authentic Tangail cotton! Very lightweight and comfortable. Love the red border work.", date: "2026-05-18" }
+    ],
+    isFeatured: true,
+    isNewArrival: true,
+    isBestSeller: true,
+    isFlashSale: false
+  },
+  {
+    id: "p7",
+    name: { en: "Premium Genuine Bangladesh Leather Slim Wallet", bn: "প্রিমিয়াম খাঁটি চামড়ার স্লিম ওয়ালেট" },
+    description: {
+      en: "Engineered from top-grain locally sourced Bangladeshi cowhide leather. This slim bi-fold wallet contains 6 card slots, a secure cash compartment, and RFID blocking technology to safeguard your bank cards.",
+      bn: "বাংলাদেশের টপ-গ্রেইন প্রিমিয়াম গরুর চামড়া দিয়ে তৈরি স্লিম বাই-ফোল্ড ওয়ালেট। এতে আছে ৬টি কার্ড স্লট, সুরক্ষিত ক্যাশ পকেট এবং তথ্য সুরক্ষার জন্য আরএফআইডি ব্লকিং প্রযুক্তি।"
+    },
+    shortDescription: { en: "Genuine Bovine Leather Wallet with RFID Blocking", bn: "খাঁটি দেশী চামড়ার তৈরি আরএফআইডি সুরক্ষিত ওয়ালেট" },
+    price: 1450,
+    compareAtPrice: 1850,
+    sku: "LW-BD-501",
+    stock: 25,
+    rating: 4.6,
+    images: [
+      "https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&q=80&w=600"
+    ],
+    categoryId: "fashion",
+    brand: "Apex Leather",
+    variants: [
+      { id: "v7-1", size: "Standard", color: "Classic Brown", sku: "LW-BD-501-BR", price: 1450, stock: 15 },
+      { id: "v7-2", size: "Standard", color: "Matte Black", sku: "LW-BD-501-BL", price: 1450, stock: 10 }
+    ],
+    specifications: [
+      { key: "Material", value: "100% Genuine Bovine Leather" },
+      { key: "Features", value: "RFID Blocking, 6 Card Slots, Cash Slot" }
+    ],
+    reviews: [],
+    isFeatured: false,
+    isNewArrival: true,
+    isBestSeller: false,
+    isFlashSale: true,
+    flashSaleDiscount: 10
+  },
+  {
+    id: "p8",
+    name: { en: "Premium Organic ChiniGura Kalojira Rice", bn: "প্রিমিয়াম অর্গানিক চিনিগুঁড়া সুগন্ধি চাল" },
+    description: {
+      en: "Sourced from the fertile fields of Dinajpur, our premium non-boiled ChiniGura aromatic rice is perfect for mouth-watering Polao, Biryani, and Payesh. Organic, pesticide-free, and thoroughly sorted.",
+      bn: "দিনাজপুরের উর্বর পলিময় মাঠে উৎপাদিত প্রিমিয়াম চিনিগুঁড়া বা কালোজিরা সুগন্ধি চাল। বিয়ের পোলাও, বিরিয়ানি ও সুস্বাদু পায়েশের জন্য অনবদ্য। সম্পূর্ণ অর্গানিক এবং ধুলোবালি মুক্ত।"
+    },
+    shortDescription: { en: "Selected Dinajpur Aromatic ChiniGura Rice (Pesticide-Free)", bn: "দিনাজপুরের ঐতিহ্যবাহী প্রিমিয়াম চিনিগুঁড়া সুগন্ধি পোলার চাল" },
+    price: 160,
+    compareAtPrice: 180,
+    sku: "RC-CHINI-2KG",
+    stock: 100,
+    rating: 4.9,
+    images: [
+      "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&q=80&w=600"
+    ],
+    categoryId: "groceries",
+    brand: "Dinajpur Agro",
+    variants: [
+      { id: "v8-1", size: "2kg Poly Pack", sku: "RC-CHINI-2KG", price: 160, stock: 60 },
+      { id: "v8-2", size: "5kg Canvas Pack", sku: "RC-CHINI-5KG", price: 380, stock: 40 }
+    ],
+    specifications: [
+      { key: "Type", value: "ChiniGura / Kalojira Aromatic Scented Rice" },
+      { key: "Origin", value: "Dinajpur, Bangladesh" }
+    ],
+    reviews: [
+      { id: "r8", customerName: "Hasan Al Banna", rating: 5, comment: "Outstanding aroma! The rice is small and perfectly whole. Polao turned out amazing.", date: "2026-05-22" }
+    ],
+    isFeatured: true,
+    isNewArrival: false,
+    isBestSeller: true,
+    isFlashSale: false
+  },
+  {
+    id: "p9",
+    name: { en: "Pure Cold-Pressed Wood-Ghanni Mustard Oil", bn: "কাঠের ঘানিতে ভাঙা খাঁটি সরিষার তেল" },
+    description: {
+      en: "Traditionally extracted from selected local mustard seeds using wooden Ghani. Retains natural flavor, nutrition, and heavy pungency. Absolutely zero added preservatives or chemicals. Made for dynamic Bangladeshi kitchen setups.",
+      bn: "পরম ঐতিহ্যবাহী কাঠের ঘানিতে ভাঙা বিশুদ্ধ সরিষার তেল। এর তীব্র ঝাজালো ঘ্রাণ ও গুণাগুণ শতভাগ অটুট। কোনো ধরনের ভেজাল বা কৃত্রিম রঙ ছাড়াই বোতলজাত করা।"
+    },
+    shortDescription: { en: "100% Pure Cold-Pressed Traditional Ghani Mustard Oil", bn: "কাঠের ঘানিতে ভাঙা খাঁটি ঐতিহ্যবাহী ঝাজালো সরিষার তেল" },
+    price: 280,
+    compareAtPrice: 320,
+    sku: "OL-MST-1L",
+    stock: 80,
+    rating: 4.8,
+    images: [
+      "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&q=80&w=600"
+    ],
+    categoryId: "groceries",
+    brand: "Shorisha Ghor",
+    variants: [
+      { id: "v9-1", size: "1 Litre Bottle", sku: "OL-MST-1L", price: 280, stock: 50 },
+      { id: "v9-2", size: "2 Litre Can", sku: "OL-MST-2L", price: 540, stock: 30 }
+    ],
+    specifications: [
+      { key: "Extraction Method", value: "Cold-Pressed Wooden Ghani (ঘানি)" },
+      { key: "Ingredients", value: "100% Pure Mustard Seeds" }
+    ],
+    reviews: [],
+    isFeatured: false,
+    isNewArrival: true,
+    isBestSeller: true,
+    isFlashSale: false
+  },
+  {
+    id: "p10",
+    name: { en: "Miyako Premium Electric Kettle MJK-100", bn: "মিয়াকো প্রিমিয়াম ইলেকট্রিক কেটলি MJK-১০০" },
+    description: {
+      en: "High performance 1.5L cordless electric kettle with double-wall cool-touch body. Engineered with fast-boiling 1500W element, automatic dry-boil safety shutoff, and food-grade stainless steel interior.",
+      bn: "মিয়াকো ১.৫ লিটার ডাবল-ওয়াল কুল-টাচ ইলেকট্রিক কেটলি। ১৫০০ ওয়াট দ্রুত গরম প্রযুক্তির সেগমেন্টের ডাবল প্রোটেকশন, স্টেইনলেস স্টিল ম্যাটেরিয়াল এবং ড্রাই-বয়েল অটো অফ সুবিধা।"
+    },
+    shortDescription: { en: "1.5L Cool-Touch Cordless Electric Kettle", bn: "মিয়াকো ১.৫ লিটার বডি-সুরক্ষিত কর্ডলেস ইলেকট্রিক কেটলি" },
+    price: 1850,
+    compareAtPrice: 2200,
+    sku: "EL-MIY-MK100",
+    stock: 18,
+    rating: 4.5,
+    images: [
+      "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&q=80&w=600"
+    ],
+    categoryId: "electronics",
+    brand: "Miyako",
+    variants: [
+      { id: "v10-1", size: "1.5 Litre Standard", color: "Classic Silver & Black", sku: "EL-MIY-MK100-SL", price: 1850, stock: 18 }
+    ],
+    specifications: [
+      { key: "Power", value: "1500 Watts 220V" },
+      { key: "Capacity", value: "1.5 Litres" },
+      { key: "Safety", value: "Auto Shutoff, Boil-Dry Protection" }
+    ],
+    reviews: [],
+    isFeatured: true,
+    isNewArrival: true,
+    isBestSeller: false,
+    isFlashSale: false
+  },
+  {
+    id: "p11",
+    name: { en: "Walton High Speed Rechargeable Desk Fan", bn: "ওয়ালটন হাই স্পিড রিচার্জেবল টেবিল ফ্যান" },
+    description: {
+      en: "Beat load shedding with Walton rechargeable desk fan. Equipped with a long-lasting Lithium-ion battery providing up to 8 hours of continuous breeze, 3-speed adjustable airflow, and integrated LED nightlight.",
+      bn: "লোডশেডিং এর মোক্ষম সমাধান ওয়ালটন রিচার্জেবল ফ্যান। শক্তিশালী লিথিয়াম ব্যাটারির সাহায্যে টানা ৮ ঘণ্টা মৃদু হাওয়া, ৩ স্পিড কন্ট্রোল এবং জরুরি ব্যবহারের জন্য চমৎকার এলইডি নাইট লাইট।"
+    },
+    shortDescription: { en: "12-Inch Rechargeable Oscillating Fan", bn: "ওয়ালটন ১২-ইঞ্চি চার্জিং টেবিল ফ্যান" },
+    price: 4200,
+    compareAtPrice: 4800,
+    sku: "EL-WT-FAN12",
+    stock: 10,
+    rating: 4.6,
+    images: [
+      "https://images.unsplash.com/photo-1618944847023-38aa001235f0?auto=format&fit=crop&q=80&w=600"
+    ],
+    categoryId: "electronics",
+    brand: "Walton",
+    variants: [
+      { id: "v11-1", size: "12-Inch Blades", color: "Ocean Blue & White", sku: "EL-WT-FAN12-BL", price: 4200, stock: 10 }
+    ],
+    specifications: [
+      { key: "Battery", value: "12V 4.5Ah Rechargeable Lead-Acid" },
+      { key: "Backup Time", value: "High: 3 hours, Low: 8 hours" }
+    ],
+    reviews: [],
+    isFeatured: false,
+    isNewArrival: false,
+    isBestSeller: true,
+    isFlashSale: true,
+    flashSaleDiscount: 12
+  },
+  {
+    id: "p12",
+    name: { en: "Handcrafted Organic Jute Fiber Rug Accent", bn: "হাতে বোনা খাঁটি পাটের গোল টেবিল গালিচা" },
+    description: {
+      en: "Woven with premium-grade golden jute fiber, the most sustainable organic material in Bangladesh. Features a modern geometric coiled layout with clean margins and elegant edge stitches. Gives a boho, organic feel to your living room.",
+      bn: "বাংলাদেশের সোনালী আঁশ পাট দিয়ে তৈরি খাঁটি হাতে বোনা চমৎকার রাউন্ড কার্পেট বা ডেকোরেটিভ গালিচা। চমৎকার বৃত্তাকার বুনন যা বসার ঘরের সৌন্দর্য বহুলাংশে বৃদ্ধি করে।"
+    },
+    shortDescription: { en: "100% Eco-Friendly Golden Jute Hand-Spun Area Rug", bn: "১০০% পরিবেশবান্ধব সোনালী পাটের চমৎকার বসার ঘরের কার্পেট" },
+    price: 2400,
+    compareAtPrice: 3200,
+    sku: "HD-JUT-RU4",
+    stock: 15,
+    rating: 4.8,
+    images: [
+      "https://images.unsplash.com/photo-1600121848594-d8644e57abab?auto=format&fit=crop&q=80&w=600"
+    ],
+    categoryId: "home-decor",
+    brand: "Golden Fibers",
+    variants: [
+      { id: "v12-1", size: "4 Feet Diameter", color: "Natural Jute Gold", sku: "HD-JUT-RU4-4D", price: 2400, stock: 10 },
+      { id: "v12-2", size: "6 Feet Diameter", color: "Natural Jute Gold", sku: "HD-JUT-RU4-6D", price: 3900, stock: 5 }
+    ],
+    specifications: [
+      { key: "Material", value: "100% Export Quality Golden Jute Fiber" },
+      { key: "Weave Style", value: "Circular Braided Eco-friendly Rug" }
+    ],
+    reviews: [
+      { id: "r12", customerName: "Siddiqur Rahman", rating: 5, comment: "Impressive workmanship. Completely organic vibe, perfect size for my center coffee table.", date: "2026-05-20" }
+    ],
+    isFeatured: true,
+    isNewArrival: true,
+    isBestSeller: false,
+    isFlashSale: false
+  },
+  {
+    id: "p13",
+    name: { en: "Classic Hand-woven Premium Sylhet Sital Pati", bn: "সিলেটের ঐতিহ্যবাহী প্রিমিয়াম শীতল পাটি" },
+    description: {
+      en: "Authentic Sital Pati handcraft woven in Sylhet from Murta plants. Known for its cooling properties and silky texture, it acts as a magical summer bed/floor mat. Keeps body heat down naturally.",
+      bn: "মুর্তা গাছ থেকে তৈরি সিলেটের বিশ্বখ্যাত ঐতিহ্যবাহী প্রিমিয়াম শীতল পাটি। দারুণ আরামদায়ক ও ঠান্ডাদায়ক গুণাগুণ সম্পন্ন। বসার বা ঘুমানোর জন্য গরমে অসম্ভব আরাম।"
+    },
+    shortDescription: { en: "Sylhet's Heritage Organic Cane Cooling Bed Mat", bn: "সিлеটের সম্পূর্ণ প্রাকৃতিকভাবে তৈরি শীতল শীতল পাটি" },
+    price: 1950,
+    compareAtPrice: 2500,
+    sku: "HD-STL-PATI",
+    stock: 8,
+    rating: 4.9,
+    images: [
+      "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&q=80&w=600"
+    ],
+    categoryId: "home-decor",
+    brand: "Sylhet Cane Crafts",
+    variants: [
+      { id: "v13-1", size: "5ft x 7ft (Standard)", color: "Natural Wood & Ruby Weave", sku: "HD-STL-PATI-S", price: 1950, stock: 8 }
+    ],
+    specifications: [
+      { key: "Raw Material", value: "100% Murta Plant (Schumannianthus dichotomus)" },
+      { key: "Origin", value: "Sylhet, Bangladesh" }
+    ],
+    reviews: [],
+    isFeatured: true,
+    isNewArrival: false,
+    isBestSeller: true,
+    isFlashSale: false
   }
 ];
 
